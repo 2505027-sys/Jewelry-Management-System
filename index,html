@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jewelry Management System</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f5f2f7;
+    color: #333;
+}
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #301344;
+    color: white;
+    position: fixed;
+    padding: 25px 15px;
+    overflow-y: auto;
+}
+
+.logo {
+    text-align: center;
+    color: #e7c477;
+    font-size: 21px;
+    margin-bottom: 35px;
+}
+
+.sidebar a {
+    display: block;
+    padding: 14px;
+    color: white;
+    text-decoration: none;
+    margin: 5px 0;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: #70418a;
+}
+
+.main {
+    margin-left: 250px;
+    padding: 30px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    gap: 15px;
+}
+
+header h1 {
+    color: #301344;
+}
+
+header span {
+    color: #777;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: white;
+    padding: 23px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px #ddd;
+    border-left: 5px solid #b9954c;
+}
+
+.card h3 {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.card p {
+    font-size: 25px;
+    font-weight: bold;
+    color: #301344;
+}
+
+.panel {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    box-shadow: 0 3px 12px #ddd;
+}
+
+.panel h2 {
+    color: #301344;
+    margin-bottom: 20px;
+}
+
+button {
+    background: #54246f;
+    color: white;
+    border: none;
+    padding: 11px 17px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 3px;
+}
+
+button:hover {
+    background: #301344;
+}
+
+.delete {
+    background: #c0392b;
+}
+
+.edit {
+    background: #b58b37;
+}
+
+input, select, textarea {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 100%;
+    margin: 7px 0 15px;
+}
+
+label {
+    font-weight: bold;
+    color: #555;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    min-width: 600px;
+}
+
+th, td {
+    padding: 13px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background: #301344;
+    color: white;
+}
+
+tr:hover {
+    background: #f8f4fa;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+.search {
+    max-width: 350px;
+}
+
+.welcome {
+    background: linear-gradient(120deg, #301344, #754a88);
+    color: white;
+    padding: 35px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+.welcome h2 {
+    color: #e7c477;
+    margin-bottom: 12px;
+}
+
+.notice {
+    background: #f4e9c9;
+    padding: 15px;
+    border-radius: 7px;
+    margin-bottom: 15px;
+}
+
+.empty {
+    text-align: center;
+    padding: 25px;
+    color: #888;
+}
+
+@media(max-width: 900px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .main {
+        margin-left: 0;
+        padding: 15px;
+    }
+
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .sidebar a {
+        display: inline-block;
+        padding: 10px;
+    }
+}
+
+@media(max-width: 550px) {
+    .cards, .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <h2 class="logo">✦ JEWELRY PRO</h2>
+
+    <a class="active" onclick="showPage('dashboard',this)">Dashboard</a>
+    <a onclick="showPage('jewelry',this)">Jewelry Management</a>
+    <a onclick="showPage('categories',this)">Categories</a>
+    <a onclick="showPage('stock',this)">Stock Management</a>
+    <a onclick="showPage('sales',this)">Sales</a>
+    <a onclick="showPage('customers',this)">Customers</a>
+    <a onclick="showPage('suppliers',this)">Suppliers</a>
+    <a onclick="showPage('reports',this)">Reports</a>
+    <a onclick="showPage('users',this)">Users</a>
+
+</div>
+
+<div class="main">
+
+<header>
+    <h1 id="pageTitle">Dashboard</h1>
+    <span id="today"></span>
+</header>
+
+<!-- DASHBOARD -->
+
+<section id="dashboard" class="page active">
+
+<div class="welcome">
+    <h2>Welcome to Jewelry Management System</h2>
+    <p>Manage your jewelry shop, products, customers, sales and inventory in one place.</p>
+</div>
+
+<div class="cards">
+
+<div class="card">
+<h3>Total Jewelry Products</h3>
+<p id="totalJewelry">0</p>
+</div>
+
+<div class="card">
+<h3>Total Customers</h3>
+<p id="totalCustomers">0</p>
+</div>
+
+<div class="card">
+<h3>Total Sales</h3>
+<p id="totalSales">KSh 0</p>
+</div>
+
+<div class="card">
+<h3>Available Stock</h3>
+<p id="totalStock">0</p>
+</div>
+
+</div>
+
+<div class="panel">
+<h2>Recent Sales</h2>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Customer</th>
+<th>Jewelry</th>
+<th>Quantity</th>
+<th>Amount</th>
+<th>Date</th>
+</tr>
+</thead>
+<tbody id="recentSales"></tbody>
+</table>
+</div>
+</div>
+
+</section>
+
+<!-- JEWELRY -->
+
+<section id="jewelry" class="page">
+
+<div class="panel">
+<h2>Add Jewelry Product</h2>
+
+<form id="jewelryForm">
+
+<input type="hidden" id="jewelryId">
+
+<div class="form-grid">
+
+<div>
+<label>Product Name</label>
+<input id="productName" required placeholder="e.g. Gold Necklace">
+</div>
+
+<div>
+<label>Category</label>
+<select id="productCategory" required>
+<option value="">Select Category</option>
+<option>Rings</option>
+<option>Necklaces</option>
+<option>Bracelets</option>
+<option>Earrings</option>
+<option>Watches</option>
+<option>Other</option>
+</select>
+</div>
+
+<div>
+<label>Price (KSh)</label>
+<input type="number" id="productPrice" min="0.01" step="0.01" required>
+</div>
+
+<div>
+<label>Quantity</label>
+<input type="number" id="productQuantity" min="0" required>
+</div>
+
+<div>
+<label>Material</label>
+<input id="productMaterial" placeholder="e.g. Gold, Silver">
+</div>
+
+<div>
+<label>Supplier</label>
+<input id="productSupplier" placeholder="Supplier name">
+</div>
+
+</div>
+
+<button type="submit">Save Jewelry</button>
+<button type="reset" onclick="clearJewelryForm()">Clear</button>
+
+</form>
+</div>
+
+<div class="panel">
+<h2>Jewelry Inventory</h2>
+<input class="search" placeholder="Search jewelry..." oninput="renderJewelry(this.value)">
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Category</th>
+<th>Material</th>
+<th>Price</th>
+<th>Quantity</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody id="jewelryTable"></tbody>
+</table>
+</div>
+</div>
+
+</section>
+
+<!-- CATEGORIES -->
+
+<section id="categories" class="page">
+
+<div class="panel">
+<h2>Jewelry Categories</h2>
+
+<div class="form-grid">
+<div>
+<label>New Category</label>
+<input id="newCategory" placeholder="Enter category name">
+</div>
+</div>
+
+<button onclick="addCategory()">Add Category</button>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Number of Products</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="categoryTable"></tbody>
+</table>
+</div>
+</div>
+
+</section>
+
+<!-- STOCK -->
+
+<section id="stock" class="page">
+
+<div class="panel">
+<h2>Stock Management</h2>
+
+<p class="notice">Monitor product quantities and identify items that need restocking.</p>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Product</th>
+<th>Category</th>
+<th>Available Quantity</th>
+<th>Stock Status</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="stockTable"></tbody>
+</table>
+</div>
+
+</div>
+
+</section>
+
+<!-- SALES -->
+
+<section id="sales" class="page">
+
+<div class="panel">
+<h2>Record New Sale</h2>
+
+<form id="salesForm">
+
+<label>Customer Name</label>
+<input id="saleCustomer" required placeholder="Customer name">
+
+<label>Jewelry Product</label>
+<select id="saleProduct" required>
+<option value="">Select Product</option>
+</select>
+
+<label>Quantity Sold</label>
+<input type="number" id="saleQuantity" min="1" required>
+
+<button type="submit">Record Sale</button>
+
+</form>
+</div>
+
+<div class="panel">
+<h2>Sales Records</h2>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Sale ID</th>
+<th>Customer</th>
+<th>Product</th>
+<th>Quantity</th>
+<th>Total Amount</th>
+<th>Date</th>
+</tr>
+</thead>
+<tbody id="salesTable"></tbody>
+</table>
+</div>
+</div>
+
+</section>
+
+<!-- CUSTOMERS -->
+
+<section id="customers" class="page">
+
+<div class="panel">
+<h2>Register Customer</h2>
+
+<form id="customerForm">
+
+<input type="hidden" id="customerId">
+
+<label>Customer Name</label>
+<input id="customerName" required>
+
+<label>Phone Number</label>
+<input id="customerPhone" required>
+
+<label>Email Address</label>
+<input type="email" id="customerEmail">
+
+<button type="submit">Save Customer</button>
+<button type="reset" onclick="clearCustomerForm()">Clear</button>
+
+</form>
+</div>
+
+<div class="panel">
+<h2>Customer Records</h2>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Phone</th>
+<th>Email</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody id="customerTable"></tbody>
+</table>
+</div>
+
+</div>
+
+</section>
+
+<!-- SUPPLIERS -->
+
+<section id="suppliers" class="page">
+
+<div class="panel">
+<h2>Add Supplier</h2>
+
+<form id="supplierForm">
+
+<input type="hidden" id="supplierId">
+
+<label>Supplier Name</label>
+<input id="supplierName" required>
+
+<label>Phone Number</label>
+<input id="supplierPhone" required>
+
+<label>Email</label>
+<input type="email" id="supplierEmail">
+
+<label>Address</label>
+<input id="supplierAddress">
+
+<button type="submit">Save Supplier</button>
+<button type="reset" onclick="clearSupplierForm()">Clear</button>
+
+</form>
+</div>
+
+<div class="panel">
+<h2>Supplier Records</h2>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Phone</th>
+<th>Email</th>
+<th>Address</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody id="supplierTable"></tbody>
+</table>
+</div>
+
+</div>
+
+</section>
+
+<!-- REPORTS -->
+
+<section id="reports" class="page">
+
+<div class="panel">
+<h2>Business Reports</h2>
+
+<div class="cards">
+
+<div class="card">
+<h3>Total Revenue</h3>
+<p id="reportRevenue">KSh 0</p>
+</div>
+
+<div class="card">
+<h3>Products</h3>
+<p id="reportProducts">0</p>
+</div>
+
+<div class="card">
+<h3>Transactions</h3>
+<p id="reportTransactions">0</p>
+</div>
+
+<div class="card">
+<h3>Low Stock Items</h3>
+<p id="reportLowStock">0</p>
+</div>
+
+</div>
+
+<button onclick="window.print()">Print Report</button>
+<button onclick="exportReport()">Download Sales CSV</button>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Product</th>
+<th>Quantity Sold</th>
+<th>Revenue</th>
+</tr>
+</thead>
+<tbody id="reportTable"></tbody>
+</table>
+</div>
+
+</div>
+
+</section>
+
+<!-- USERS -->
+
+<section id="users" class="page">
+
+<div class="panel">
+<h2>System Users</h2>
+
+<form id="userForm">
+
+<label>Username</label>
+<input id="username" required>
+
+<label>Role</label>
+<select id="userRole">
+<option>Administrator</option>
+<option>Manager</option>
+<option>Sales Staff</option>
+</select>
+
+<button type="submit">Add User</button>
+
+</form>
+</div>
+
+<div class="panel">
+<h2>Registered Users</h2>
+
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>Username</th>
+<th>Role</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="userTable"></tbody>
+</table>
+</div>
+</div>
+
+</section>
+
+</div>
+
+<script>
+
+// DATA STORAGE
+
+let jewelry = JSON.parse(localStorage.getItem("jewelry")) || [];
+let customers = JSON.parse(localStorage.getItem("customers")) || [];
+let suppliers = JSON.parse(localStorage.getItem("suppliers")) || [];
+let sales = JSON.parse(localStorage.getItem("sales")) || [];
+let users = JSON.parse(localStorage.getItem("users")) || [
+    {id:1, name:"admin", role:"Administrator"}
+];
+
+let categories = JSON.parse(localStorage.getItem("categories")) ||
+["Rings","Necklaces","Bracelets","Earrings","Watches","Other"];
+
+function saveData() {
+    localStorage.setItem("jewelry",JSON.stringify(jewelry));
+    localStorage.setItem("customers",JSON.stringify(customers));
+    localStorage.setItem("suppliers",JSON.stringify(suppliers));
+    localStorage.setItem("sales",JSON.stringify(sales));
+    localStorage.setItem("users",JSON.stringify(users));
+    localStorage.setItem("categories",JSON.stringify(categories));
+}
+
+function money(amount) {
+    return "KSh " + Number(amount).toLocaleString("en-KE");
+}
+
+// NAVIGATION
+
+function showPage(page,link) {
+
+    document.querySelectorAll(".page").forEach(p => {
+        p.classList.remove("active");
+    });
+
+    document.getElementById(page).classList.add("active");
+
+    document.querySelectorAll(".sidebar a").forEach(a => {
+        a.classList.remove("active");
+    });
+
+    link.classList.add("active");
+
+    document.getElementById("pageTitle").textContent =
+        link.textContent;
+
+    refresh();
+}
+
+// JEWELRY MANAGEMENT
+
+document.getElementById("jewelryForm").onsubmit = function(e) {
+
+    e.preventDefault();
+
+    let id = document.getElementById("jewelryId").value;
+
+    let item = {
+        id: id ? Number(id) : Date.now(),
+        name: productName.value.trim(),
+        category: productCategory.value,
+        price: Number(productPrice.value),
+        quantity: Number(productQuantity.value),
+        material: productMaterial.value.trim(),
+        supplier: productSupplier.value.trim()
+    };
+
+    if(id) {
+        jewelry = jewelry.map(j => j.id == id ? item : j);
+    } else {
+        jewelry.push(item);
+    }
+
+    saveData();
+    this.reset();
+    clearJewelryForm();
+    refresh();
+
+    alert("Jewelry record saved successfully!");
+};
+
+function clearJewelryForm() {
+    jewelryId.value = "";
+}
+
+function renderJewelry(search="") {
+
+    jewelryTable.innerHTML = "";
+
+    let filtered = jewelry.filter(j =>
+        j.name.toLowerCase().includes(search.toLowerCase())
+    );
+
+    filtered.forEach(j => {
+
+        jewelryTable.innerHTML += `
+        <tr>
+        <td>${j.id}</td>
+        <td>${escapeHTML(j.name)}</td>
+        <td>${escapeHTML(j.category)}</td>
+        <td>${escapeHTML(j.material)}</td>
+        <td>${money(j.price)}</td>
+        <td>${j.quantity}</td>
+        <td>
+        <button class="edit" onclick="editJewelry(${j.id})">Edit</button>
+        <button class="delete" onclick="deleteJewelry(${j.id})">Delete</button>
+        </td>
+        </tr>`;
+    });
+
+    if(!filtered.length) {
+        jewelryTable.innerHTML =
+        '<tr><td colspan="7" class="empty">No jewelry records found.</td></tr>';
+    }
+}
+
+function editJewelry(id) {
+
+    let j = jewelry.find(x => x.id === id);
+
+    jewelryId.value = j.id;
+    productName.value = j.name;
+    productCategory.value = j.category;
+    productPrice.value = j.price;
+    productQuantity.value = j.quantity;
+    productMaterial.value = j.material;
+    productSupplier.value = j.supplier;
+
+    window.scrollTo(0,0);
+}
+
+function deleteJewelry(id) {
+
+    if(confirm("Delete this jewelry product?")) {
+
+        jewelry = jewelry.filter(j => j.id !== id);
+        saveData();
+        refresh();
+    }
+}
+
+// CATEGORIES
+
+function addCategory() {
+
+    let name = newCategory.value.trim();
+
+    if(!name) return alert("Enter a category name.");
+
+    if(categories.some(c => c.toLowerCase() === name.toLowerCase())) {
+        return alert("Category already exists.");
+    }
+
+    categories.push(name);
+    newCategory.value = "";
+
+    saveData();
+    refresh();
+}
+
+function renderCategories() {
+
+    categoryTable.innerHTML = "";
+
+    categories.forEach(c => {
+
+        let count = jewelry.filter(j => j.category === c).length;
+
+        categoryTable.innerHTML += `
+        <tr>
+        <td>${escapeHTML(c)}</td>
+        <td>${count}</td>
+        <td><button class="delete" onclick="deleteCategory('${escapeHTML(c).replace(/'/g,"&#39;")}')">Delete</button></td>
+        </tr>`;
+    });
+}
+
+function deleteCategory(name) {
+
+    if(jewelry.some(j => j.category === name)) {
+        return alert("This category has products. Remove or reassign them first.");
+    }
+
+    if(confirm("Delete this category?")) {
+        categories = categories.filter(c => c !== name);
+        saveData();
+        refresh();
+    }
+}
+
+// STOCK MANAGEMENT
+
+function renderStock() {
+
+    stockTable.innerHTML = "";
+
+    jewelry.forEach(j => {
+
+        let status = j.quantity <= 5 ? "Low Stock" : "Available";
+
+        stockTable.innerHTML += `
+        <tr>
+        <td>${escapeHTML(j.name)}</td>
+        <td>${escapeHTML(j.category)}</td>
+        <td>${j.quantity}</td>
+        <td>${status}</td>
+        <td><button onclick="editJewelry(${j.id})">Update</button></td>
+        </tr>`;
+    });
+
+    if(!jewelry.length) {
+        stockTable.innerHTML =
+        '<tr><td colspan="5" class="empty">No stock records available.</td></tr>';
+    }
+}
+
+// SALES MANAGEMENT
+
+function updateProductOptions() {
+
+    saleProduct.innerHTML = '<option value="">Select Product</option>';
+
+    jewelry.filter(j => j.quantity > 0).forEach(j => {
+
+        saleProduct.innerHTML += `
+        <option value="${j.id}">
+        ${escapeHTML(j.name)} - ${money(j.price)} (${j.quantity} available)
+        </option>`;
+    });
+}
+
+document.getElementById("salesForm").onsubmit = function(e) {
+
+    e.preventDefault();
+
+    let id = Number(saleProduct.value);
+    let quantity = Number(saleQuantity.value);
+    let product = jewelry.find(j => j.id === id);
+
+    if(!product) return alert("Select a valid product.");
+
+    if(quantity <= 0 || quantity > product.quantity) {
+        return alert("Insufficient stock. Available: " + product.quantity);
+    }
+
+    let sale = {
+        id: Date.now(),
+        customer: saleCustomer.value.trim(),
+        product: product.name,
+        productId: product.id,
+        quantity: quantity,
+        amount: quantity * product.price,
+        date: new Date().toLocaleDateString()
+    };
+
+    product.quantity -= quantity;
+    sales.push(sale);
+
+    saveData();
+    this.reset();
+    refresh();
+
+    alert("Sale recorded successfully!");
+};
+
+function renderSales() {
+
+    salesTable.innerHTML = "";
+
+    sales.forEach(s => {
+
+        salesTable.innerHTML += `
+        <tr>
+        <td>${s.id}</td>
+        <td>${escapeHTML(s.customer)}</td>
+        <td>${escapeHTML(s.product)}</td>
+        <td>${s.quantity}</td>
+        <td>${money(s.amount)}</td>
+        <td>${s.date}</td>
+        </tr>`;
+    });
+
+    if(!sales.length) {
+        salesTable.innerHTML =
+        '<tr><td colspan="6" class="empty">No sales recorded.</td></tr>';
+    }
+}
+
+// CUSTOMERS
+
+document.getElementById("customerForm").onsubmit = function(e) {
+
+    e.preventDefault();
+
+    let id = customerId.value;
+
+    let customer = {
+        id: id ? Number(id) : Date.now(),
+        name: customerName.value.trim(),
+        phone: customerPhone.value.trim(),
+        email: customerEmail.value.trim()
+    };
+
+    if(id) {
+        customers = customers.map(c => c.id == id ? customer : c);
+    } else {
+        customers.push(customer);
+    }
+
+    saveData();
+    this.reset();
+    clearCustomerForm();
+    refresh();
+
+    alert("Customer saved successfully!");
+};
+
+function clearCustomerForm() {
+    customerId.value = "";
+}
+
+function renderCustomers() {
+
+    customerTable.innerHTML = "";
+
+    customers.forEach(c => {
+
+        customerTable.innerHTML += `
+        <tr>
+        <td>${c.id}</td>
+        <td>${escapeHTML(c.name)}</td>
+        <td>${escapeHTML(c.phone)}</td>
+        <td>${escapeHTML(c.email)}</td>
+        <td>
+        <button class="edit" onclick="editCustomer(${c.id})">Edit</button>
+        <button class="delete" onclick="deleteCustomer(${c.id})">Delete</button>
+        </td>
+        </tr>`;
+    });
+
+    if(!customers.length) {
+        customerTable.innerHTML =
+        '<tr><td colspan="5" class="empty">No customers registered.</td></tr>';
+    }
+}
+
+function editCustomer(id) {
+
+    let c = customers.find(x => x.id === id);
+
+    customerId.value = c.id;
+    customerName.value = c.name;
+    customerPhone.value = c.phone;
+    customerEmail.value = c.email;
+
+    window.scrollTo(0,0);
+}
+
+function deleteCustomer(id) {
+
+    if(confirm("Delete this customer?")) {
+
+        customers = customers.filter(c => c.id !== id);
+        saveData();
+        refresh();
+    }
+}
+
+// SUPPLIERS
+
+document.getElementById("supplierForm").onsubmit = function(e) {
+
+    e.preventDefault();
+
+    let id = supplierId.value;
+
+    let supplier = {
+        id: id ? Number(id) : Date.now(),
+        name: supplierName.value.trim(),
+        phone: supplierPhone.value.trim(),
+        email: supplierEmail.value.trim(),
+        address: supplierAddress.value.trim()
+    };
+
+    if(id) {
+        suppliers = suppliers.map(s => s.id == id ? supplier : s);
+    } else {
+        suppliers.push(supplier);
+    }
+
+    saveData();
+    this.reset();
+    clearSupplierForm();
+    refresh();
+
+    alert("Supplier saved successfully!");
+};
+
+function clearSupplierForm() {
+    supplierId.value = "";
+}
+
+function renderSuppliers() {
+
+    supplierTable.innerHTML = "";
+
+    suppliers.forEach(s => {
+
+        supplierTable.innerHTML += `
+        <tr>
+        <td>${s.id}</td>
+        <td>${escapeHTML(s.name)}</td>
+        <td>${escapeHTML(s.phone)}</td>
+        <td>${escapeHTML(s.email)}</td>
+        <td>${escapeHTML(s.address)}</td>
+        <td>
+        <button class="edit" onclick="editSupplier(${s.id})">Edit</button>
+        <button class="delete" onclick="deleteSupplier(${s.id})">Delete</button>
+        </td>
+        </tr>`;
+    });
+
+    if(!suppliers.length) {
+        supplierTable.innerHTML =
+        '<tr><td colspan="6" class="empty">No suppliers registered.</td></tr>';
+    }
+}
+
+function editSupplier(id) {
+
+    let s = suppliers.find(x => x.id === id);
+
+    supplierId.value = s.id;
+    supplierName.value = s.name;
+    supplierPhone.value = s.phone;
+    supplierEmail.value = s.email;
+    supplierAddress.value = s.address;
+
+    window.scrollTo(0,0);
+}
+
+function deleteSupplier(id) {
+
+    if(confirm("Delete this supplier?")) {
+
+        suppliers = suppliers.filter(s => s.id !== id);
+        saveData();
+        refresh();
+    }
+}
+
+// USERS
+
+document.getElementById("userForm").onsubmit = function(e) {
+
+    e.preventDefault();
+
+    let name = username.value.trim();
+
+    if(users.some(u => u.name.toLowerCase() === name.toLowerCase())) {
+        return alert("Username already exists.");
+    }
+
+    users.push({
+        id: Date.now(),
+        name: name,
+        role: userRole.value
+    });
+
+    saveData();
+    this.reset();
+    refresh();
+
+    alert("User added successfully!");
+};
+
+function renderUsers() {
+
+    userTable.innerHTML = "";
+
+    users.forEach(u => {
+
+        userTable.innerHTML += `
+        <tr>
+        <td>${escapeHTML(u.name)}</td>
+        <td>${escapeHTML(u.role)}</td>
+        <td>
+        ${u.id === 1 ? "Default Administrator" :
+        `<button class="delete" onclick="deleteUser(${u.id})">Delete</button>`}
+        </td>
+        </tr>`;
+    });
+}
+
+function deleteUser(id) {
+
+    if(confirm("Delete this user?")) {
+
+        users = users.filter(u => u.id !== id);
+        saveData();
+        refresh();
+    }
+}
+
+// REPORTS
+
+function renderReports() {
+
+    let revenue = sales.reduce((sum,s) => sum + s.amount,0);
+
+    reportRevenue.textContent = money(revenue);
+    reportProducts.textContent = jewelry.length;
+    reportTransactions.textContent = sales.length;
+
+    reportLowStock.textContent =
+        jewelry.filter(j => j.quantity <= 5).length;
+
+    reportTable.innerHTML = "";
+
+    let summary = {};
+
+    sales.forEach(s => {
+
+        if(!summary[s.product]) {
+            summary[s.product] = {quantity:0,revenue:0};
+        }
+
+        summary[s.product].quantity += s.quantity;
+        summary[s.product].revenue += s.amount;
+    });
+
+    Object.entries(summary).forEach(([name,data]) => {
+
+        reportTable.innerHTML += `
+        <tr>
+        <td>${escapeHTML(name)}</td>
+        <td>${data.quantity}</td>
+        <td>${money(data.revenue)}</td>
+        </tr>`;
+    });
+
+    if(!Object.keys(summary).length) {
+        reportTable.innerHTML =
+        '<tr><td colspan="3" class="empty">No sales data available.</td></tr>';
+    }
+}
+
+function exportReport() {
+
+    let csv = "Sale ID,Customer,Product,Quantity,Amount,Date\n";
+
+    sales.forEach(s => {
+
+        csv += [
+            s.id,
+            s.customer,
+            s.product,
+            s.quantity,
+            s.amount,
+            s.date
+        ].map(v => `"${String(v).replace(/"/g,'""')}"`).join(",") + "\n";
+    });
+
+    let blob = new Blob([csv],{type:"text/csv"});
+    let link = document.createElement("a");
+
+    link.href = URL.createObjectURL(blob);
+    link.download = "Jewelry_Sales_Report.csv";
+    link.click();
+
+    URL.revokeObjectURL(link.href);
+}
+
+// DASHBOARD
+
+function renderDashboard() {
+
+    totalJewelry.textContent = jewelry.length;
+    totalCustomers.textContent = customers.length;
+
+    totalSales.textContent = money(
+        sales.reduce((sum,s) => sum + s.amount,0)
+    );
+
+    totalStock.textContent =
+        jewelry.reduce((sum,j) => sum + j.quantity,0);
+
+    recentSales.innerHTML = "";
+
+    sales.slice(-5).reverse().forEach(s => {
+
+        recentSales.innerHTML += `
+        <tr>
+        <td>${escapeHTML(s.customer)}</td>
+        <td>${escapeHTML(s.product)}</td>
+        <td>${s.quantity}</td>
+        <td>${money(s.amount)}</td>
+        <td>${s.date}</td>
+        </tr>`;
+    });
+
+    if(!sales.length) {
+        recentSales.innerHTML =
+        '<tr><td colspan="5" class="empty">No recent sales.</td></tr>';
+    }
+}
+
+// SECURITY HELPER FOR DISPLAYING USER INPUT
+
+function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#39;"
+    })[char]);
+}
+
+// REFRESH ALL MODULES
+
+function refresh() {
+
+    saveData();
+
+    renderDashboard();
+    renderJewelry();
+    renderCategories();
+    renderStock();
+    renderSales();
+    renderCustomers();
+    renderSuppliers();
+    renderUsers();
+    renderReports();
+    updateProductOptions();
+}
+
+// DATE
+
+today.textContent = new Date().toDateString();
+
+// START SYSTEM
+
+refresh();
+
+</script>
+
+</body>
+</html>
