@@ -4,106 +4,171 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Royal Gems | Jewelry Management System</title>
+
 <style>
-:root{--purple:#29133e;--deep:#180c27;--gold:#d9ad55;--cream:#fffaf1;--muted:#a99ab5}
+:root{
+ --purple:#28143c;
+ --dark:#180b25;
+ --gold:#d6ad61;
+ --cream:#faf7f1;
+ --white:#fff;
+ --text:#30253a;
+ --muted:#81758a;
+ --danger:#bd4242;
+ --green:#287c55;
+ --border:#eee7f0;
+}
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:var(--cream);color:#29202f}
+body{margin:0;font-family:Arial,sans-serif;background:var(--cream);color:var(--text)}
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
-header{background:var(--deep);color:white;padding:17px 6%;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
-.logo{font-size:25px;color:var(--gold);font-weight:bold;letter-spacing:2px}
-nav{display:flex;gap:18px;flex-wrap:wrap}
-nav button{background:none;border:0;color:white;font-weight:bold}
+header{
+ background:var(--dark);color:white;padding:17px 5%;
+ display:flex;justify-content:space-between;align-items:center;
+ gap:15px;flex-wrap:wrap;
+}
+.logo{font-size:25px;font-weight:bold;letter-spacing:2px;color:var(--gold)}
+nav{display:flex;gap:8px;flex-wrap:wrap}
+nav button{background:none;border:0;color:white;padding:9px}
 nav button:hover{color:var(--gold)}
-.hero{background:linear-gradient(110deg,#29133e,#50316c);color:white;padding:75px 8%;text-align:center}
-.hero h1{font-size:clamp(35px,6vw,60px);margin:10px}
-.hero p{color:#eadcf1;font-size:18px}
+.hero{
+ background:linear-gradient(110deg,#241036,#58376d);
+ color:white;text-align:center;padding:85px 6%;
+}
+.hero h1{font-size:clamp(35px,6vw,62px);margin:15px}
+.hero p{font-size:18px;color:#eee2f2;line-height:1.7}
 .gold{color:var(--gold)}
-.btn{background:var(--gold);color:#21142b;border:0;padding:12px 20px;border-radius:5px;font-weight:bold;margin:5px}
-.btn:hover{background:#f0ca7d}
-.outline{background:transparent;border:1px solid var(--gold);color:var(--gold)}
+.btn{
+ background:var(--gold);color:#24152e;border:0;
+ padding:12px 19px;border-radius:5px;font-weight:bold;
+ margin:4px;
+}
+.btn:hover{background:#edcb87}
+.btn-dark{background:var(--purple);color:white}
+.btn-outline{background:transparent;border:1px solid var(--gold);color:var(--gold)}
+.btn-danger{background:var(--danger);color:white}
 section{padding:40px 6%}
-.heading{text-align:center;color:var(--purple);margin-bottom:25px}
-.categories,.products,.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:20px}
-.category,.card,.stat,.panel{background:white;border-radius:10px;padding:20px;box-shadow:0 3px 15px #25153b12}
-.category{text-align:center;color:var(--purple);font-weight:bold}
-.card{padding:0;overflow:hidden}
+.heading{text-align:center;color:var(--purple);margin:0 0 28px}
+.categories,.products,.stats{
+ display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:20px
+}
+.category,.stat,.panel{
+ background:white;border-radius:9px;padding:20px;
+ box-shadow:0 3px 15px #28143c12;
+}
+.category{text-align:center;font-weight:bold;color:var(--purple)}
+.card{
+ background:white;border-radius:10px;overflow:hidden;
+ box-shadow:0 3px 15px #28143c12;
+}
 .card img{width:100%;height:210px;object-fit:cover;background:#eee}
 .card-body{padding:17px}
-.price{font-weight:bold;color:#9a7025;font-size:19px}
-.tag{font-size:12px;color:#705d7b}
-input,select,textarea{width:100%;padding:12px;margin:7px 0 14px;border:1px solid #ddd;border-radius:5px}
-label{font-weight:bold;color:var(--purple);font-size:14px}
-.form{max-width:550px;margin:auto;background:white;padding:25px;border-radius:10px}
+.card h3{color:var(--purple)}
+.price{font-size:20px;font-weight:bold;color:#98702c}
+.muted{color:var(--muted);font-size:13px}
+.badge{padding:5px 9px;border-radius:20px;font-size:12px;background:#eee6f3}
+.badge-green{background:#e0f2e7;color:var(--green)}
+.badge-red{background:#fbe4e4;color:var(--danger)}
+.form{
+ max-width:570px;margin:auto;background:white;padding:25px;
+ border-radius:10px;box-shadow:0 3px 15px #28143c12;
+}
+label{display:block;color:var(--purple);font-weight:bold;font-size:14px;margin-top:10px}
+input,select,textarea{
+ width:100%;padding:12px;margin:7px 0 12px;
+ border:1px solid #ddd;border-radius:5px;background:white;
+}
+textarea{resize:vertical}
 .hidden{display:none!important}
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
 .toolbar input,.toolbar select{max-width:300px}
-table{width:100%;border-collapse:collapse;background:white}
-th,td{padding:12px;border-bottom:1px solid #eee;text-align:left}
+.stat strong{display:block;font-size:27px;color:#98702c;margin-top:12px}
+.stat span{font-size:13px;color:var(--muted)}
+.tablewrap{overflow-x:auto;background:white;border-radius:8px}
+table{width:100%;border-collapse:collapse;min-width:650px}
+th,td{padding:13px;text-align:left;border-bottom:1px solid var(--border)}
 th{background:var(--purple);color:white}
-.tablewrap{overflow-x:auto}
-.stat strong{display:block;font-size:27px;color:#a47728;margin-top:10px}
-.panel{margin:20px 0}
-footer{background:var(--deep);color:#eee;padding:35px;text-align:center}
-#notice{position:fixed;bottom:20px;right:20px;background:var(--purple);color:white;padding:14px 20px;border-radius:8px;display:none;z-index:10}
-@media(max-width:600px){header{justify-content:center}nav{justify-content:center}.hero{padding:45px 5%}section{padding:30px 5%}}
+.panel{margin:18px 0}
+footer{background:var(--dark);color:white;text-align:center;padding:35px}
+footer p{color:#c8b9d0}
+#notice{
+ position:fixed;bottom:20px;right:20px;background:var(--purple);
+ color:white;padding:15px 20px;border-radius:7px;display:none;z-index:20;
+}
+.empty{text-align:center;padding:30px;color:var(--muted)}
+@media(max-width:650px){
+ header{justify-content:center}
+ nav{justify-content:center}
+ .hero{padding:55px 5%}
+ section{padding:30px 5%}
+}
 </style>
 </head>
+
 <body>
 
 <header>
  <div class="logo">ROYAL <span class="gold">GEMS</span></div>
  <nav>
-  <button onclick="page('home')">Home</button>
-  <button onclick="page('shop')">Shop</button>
-  <button onclick="page('about')">About</button>
-  <button onclick="page('contact')">Contact</button>
-  <button onclick="page('cart')">Cart (<span id="cartCount">0</span>)</button>
-  <button onclick="page('login')">Admin</button>
+  <button onclick="showPage('home')">Home</button>
+  <button onclick="showPage('shop')">Shop</button>
+  <button onclick="showPage('about')">About Us</button>
+  <button onclick="showPage('contact')">Contact</button>
+  <button onclick="showPage('cart')">Cart (<span id="cartCount">0</span>)</button>
+  <button onclick="showPage('adminLogin')">Admin</button>
  </nav>
 </header>
 
 <main>
+
+<!-- HOME -->
 <div id="home">
  <div class="hero">
   <p class="gold">ELEGANCE • BEAUTY • TIMELESS STYLE</p>
   <h1>Discover Your <span class="gold">Perfect Shine</span></h1>
   <p>Explore beautiful jewelry pieces selected to make every moment special.</p>
-  <button class="btn" onclick="page('shop')">EXPLORE COLLECTION</button>
-  <button class="btn outline" onclick="page('about')">OUR STORY</button>
+  <button class="btn" onclick="showPage('shop')">EXPLORE COLLECTION</button>
+  <button class="btn btn-outline" onclick="showPage('about')">OUR STORY</button>
  </div>
+
  <section>
   <h2 class="heading">Shop By Category</h2>
   <div class="categories">
-   <div class="category">💎 Bracelets</div>
-   <div class="category">📿 Necklaces</div>
-   <div class="category">💍 Rings</div>
-   <div class="category">✨ Earrings</div>
-   <div class="category">⌚ Watches</div>
+   <div class="category">💎<h3>Bracelets</h3></div>
+   <div class="category">📿<h3>Necklaces</h3></div>
+   <div class="category">💍<h3>Rings</h3></div>
+   <div class="category">✨<h3>Earrings</h3></div>
+   <div class="category">⌚<h3>Watches</h3></div>
   </div>
  </section>
+
  <section>
-  <h2 class="heading">Featured Jewelry</h2>
-  <div id="featured" class="products"></div>
-  <center><button class="btn" onclick="page('shop')">VIEW ALL PRODUCTS</button></center>
+  <h2 class="heading">Featured Collection</h2>
+  <div id="featuredProducts" class="products"></div>
+  <center><button class="btn" onclick="showPage('shop')">VIEW ALL JEWELRY</button></center>
  </section>
 </div>
 
+<!-- SHOP -->
 <div id="shop" class="hidden">
  <section>
-  <h2 class="heading">Our Jewelry Collection</h2>
+  <h1 class="heading">Our Jewelry Collection</h1>
   <div class="toolbar">
-   <input id="search" placeholder="Search jewelry..." oninput="renderShop()">
-   <select id="filter" onchange="renderShop()">
+   <input id="searchInput" placeholder="Search products..." oninput="renderShop()">
+   <select id="categoryFilter" onchange="renderShop()">
     <option value="">All Categories</option>
-    <option>Bracelets</option><option>Necklaces</option>
-    <option>Rings</option><option>Earrings</option><option>Watches</option>
+    <option>Bracelets</option>
+    <option>Necklaces</option>
+    <option>Rings</option>
+    <option>Earrings</option>
+    <option>Watches</option>
    </select>
   </div>
-  <div id="products" class="products"></div>
+  <div id="shopProducts" class="products"></div>
  </section>
 </div>
 
+<!-- ABOUT -->
 <div id="about" class="hidden">
  <section>
   <h1 class="heading">About Royal Gems</h1>
@@ -114,118 +179,239 @@ footer{background:var(--deep);color:#eee;padding:35px;text-align:center}
    <p>To provide customers with beautiful jewelry, convenient shopping and excellent customer service.</p>
    <h2>Our Vision</h2>
    <p>To become a trusted jewelry destination known for quality, elegance and customer satisfaction.</p>
+   <h2>Our Values</h2>
+   <p>Quality, honesty, affordability, elegance and customer satisfaction.</p>
   </div>
  </section>
 </div>
 
+<!-- CONTACT -->
 <div id="contact" class="hidden">
  <section>
   <h1 class="heading">Contact Us</h1>
-  <form class="form" onsubmit="contactMessage(event)">
-   <label>Your Name</label><input required id="contactName">
-   <label>Email Address</label><input type="email" required id="contactEmail">
-   <label>Message</label><textarea required id="contactMessage" rows="4"></textarea>
-   <button class="btn">Send Enquiry</button>
+  <form class="form" onsubmit="submitEnquiry(event)">
+   <label>Full Name</label>
+   <input id="contactName" required>
+   <label>Email Address</label>
+   <input id="contactEmail" type="email" required>
+   <label>Message</label>
+   <textarea id="contactMessage" rows="4" required></textarea>
+   <button class="btn">SEND MESSAGE</button>
   </form>
  </section>
 </div>
 
+<!-- CART -->
 <div id="cart" class="hidden">
  <section>
-  <h1 class="heading">Your Shopping Cart</h1>
-  <div id="cartItems"></div>
+  <h1 class="heading">Shopping Cart</h1>
+  <div id="cartContents"></div>
   <h2 id="cartTotal"></h2>
-  <button class="btn" onclick="page('checkout')">Proceed to Checkout</button>
+  <button class="btn" onclick="showPage('checkout')">PROCEED TO CHECKOUT</button>
+  <button class="btn btn-outline" onclick="showPage('shop')">CONTINUE SHOPPING</button>
  </section>
 </div>
 
+<!-- CHECKOUT -->
 <div id="checkout" class="hidden">
  <section>
-  <h1 class="heading">Complete Your Order</h1>
-  <form class="form" onsubmit="checkout(event)">
-   <label>Full Name</label><input id="buyerName" required>
-   <label>Email</label><input id="buyerEmail" type="email" required>
-   <label>Phone Number</label><input id="buyerPhone" required>
+  <h1 class="heading">Checkout</h1>
+  <form class="form" onsubmit="placeOrder(event)">
+   <label>Customer Name</label>
+   <input id="customerName" required>
+   <label>Email Address</label>
+   <input id="customerEmail" type="email" required>
+   <label>Phone Number</label>
+   <input id="customerPhone" required>
    <label>Payment Method</label>
-   <select id="payment"><option>Cash on Collection</option><option>M-Pesa (arrange payment)</option></select>
-   <p id="checkoutTotal"></p>
-   <button class="btn">Place Order</button>
+   <select id="paymentMethod">
+    <option>Cash on Collection</option>
+    <option>M-Pesa - Payment to be arranged</option>
+   </select>
+   <h3 id="checkoutTotal"></h3>
+   <button class="btn">PLACE ORDER</button>
   </form>
  </section>
 </div>
 
-<div id="login" class="hidden">
- <section>
-  <h1 class="heading">Administrator Login</h1>
-  <form class="form" onsubmit="login(event)">
-   <label>Username</label><input id="username" required>
-   <label>Password</label><input id="password" type="password" required>
-   <button class="btn">Login</button>
-  </form>
- </section>
-</div>
-
-<div id="admin" class="hidden">
- <section>
-  <h1 class="heading">Administration Dashboard</h1>
-  <div class="toolbar">
-   <button class="btn" onclick="adminTab('dashboard')">Dashboard</button>
-   <button class="btn" onclick="adminTab('manage')">Products</button>
-   <button class="btn" onclick="adminTab('bookings')">Orders & Bookings</button>
-   <button class="btn" onclick="adminTab('sales')">Sales</button>
-   <button class="btn outline" onclick="logout()">Logout</button>
-  </div>
-  <div id="dashboardTab">
-   <div class="stats">
-    <div class="stat">Total Products<strong id="totalProducts">0</strong></div>
-    <div class="stat">Total Stock<strong id="totalStock">0</strong></div>
-    <div class="stat">Orders<strong id="totalOrders">0</strong></div>
-    <div class="stat">Sales Value<strong id="totalSales">KSh 0</strong></div>
-   </div>
-  </div>
-  <div id="manageTab" class="hidden">
-   <div class="panel">
-    <h2>Add / Edit Product</h2>
-    <form onsubmit="saveProduct(event)">
-     <input id="editId" type="hidden">
-     <label>Product Name</label><input id="pname" required>
-     <label>Category</label>
-     <select id="pcategory"><option>Bracelets</option><option>Necklaces</option><option>Rings</option><option>Earrings</option><option>Watches</option></select>
-     <label>Price (KSh)</label><input id="pprice" type="number" min="1" required>
-     <label>Quantity</label><input id="pqty" type="number" min="0" required>
-     <label>Image URL</label><input id="pimage" placeholder="https://example.com/image.jpg">
-     <label>Description</label><textarea id="pdescription"></textarea>
-     <button class="btn">Save Product</button>
-     <button type="button" class="btn outline" onclick="clearProduct()">Clear</button>
-    </form>
-   </div>
-   <div class="tablewrap"><table><thead><tr><th>Product</th><th>Category</th><th>Price</th><th>Stock</th><th>Actions</th></tr></thead><tbody id="productRows"></tbody></table></div>
-  </div>
-  <div id="bookingsTab" class="hidden">
-   <h2>Orders & Bookings</h2>
-   <div class="tablewrap"><table><thead><tr><th>Customer</th><th>Details</th><th>Total</th><th>Status</th><th>Action</th></tr></thead><tbody id="orderRows"></tbody></table></div>
-  </div>
-  <div id="salesTab" class="hidden">
-   <h2>Sales Records</h2>
-   <div class="tablewrap"><table><thead><tr><th>Date</th><th>Customer</th><th>Amount</th><th>Payment</th></tr></thead><tbody id="salesRows"></tbody></table></div>
-  </div>
- </section>
-</div>
-
+<!-- BOOKING -->
 <div id="booking" class="hidden">
  <section>
-  <h1 class="heading">Reserve Jewelry</h1>
-  <form class="form" onsubmit="makeBooking(event)">
-   <label>Full Name</label><input id="bookName" required>
-   <label>Email</label><input id="bookEmail" type="email" required>
-   <label>Phone</label><input id="bookPhone" required>
-   <label>Product</label><select id="bookProduct"></select>
-   <label>Quantity</label><input id="bookQty" type="number" value="1" min="1" required>
-   <label>Collection Date</label><input id="bookDate" type="date" required>
-   <button class="btn">Submit Booking</button>
+  <h1 class="heading">Jewelry Reservation</h1>
+  <form class="form" onsubmit="submitBooking(event)">
+   <label>Full Name</label>
+   <input id="bookingName" required>
+   <label>Email</label>
+   <input id="bookingEmail" type="email" required>
+   <label>Phone Number</label>
+   <input id="bookingPhone" required>
+   <label>Select Jewelry</label>
+   <select id="bookingProduct"></select>
+   <label>Quantity</label>
+   <input id="bookingQuantity" type="number" min="1" value="1" required>
+   <label>Preferred Collection Date</label>
+   <input id="bookingDate" type="date" required>
+   <button class="btn">SUBMIT RESERVATION</button>
   </form>
  </section>
 </div>
+
+<!-- ADMIN LOGIN -->
+<div id="adminLogin" class="hidden">
+ <section>
+  <h1 class="heading">Administrator Login</h1>
+  <form class="form" onsubmit="adminLogin(event)">
+   <label>Username</label>
+   <input id="adminUsername" required>
+   <label>Password</label>
+   <input id="adminPassword" type="password" required>
+   <button class="btn">LOGIN</button>
+   <p class="muted">Demonstration credentials: admin / admin123</p>
+  </form>
+ </section>
+</div>
+
+<!-- ADMIN DASHBOARD -->
+<div id="adminDashboard" class="hidden">
+ <section>
+  <h1 class="heading">Administration Dashboard</h1>
+
+  <div class="toolbar">
+   <button class="btn" onclick="adminTab('overview')">Dashboard</button>
+   <button class="btn" onclick="adminTab('products')">Products</button>
+   <button class="btn" onclick="adminTab('inventory')">Inventory</button>
+   <button class="btn" onclick="adminTab('orders')">Orders & Bookings</button>
+   <button class="btn" onclick="adminTab('sales')">Sales</button>
+   <button class="btn" onclick="adminTab('reports')">Reports</button>
+   <button class="btn btn-outline" onclick="adminLogout()">Logout</button>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div id="overviewTab">
+   <h2>Business Overview</h2>
+   <div class="stats">
+    <div class="stat">Total Products<strong id="statProducts">0</strong><span>Registered products</span></div>
+    <div class="stat">Total Stock<strong id="statStock">0</strong><span>Units available</span></div>
+    <div class="stat">Customer Orders<strong id="statOrders">0</strong><span>Orders and bookings</span></div>
+    <div class="stat">Sales Revenue<strong id="statRevenue">KSh 0</strong><span>Completed sales</span></div>
+   </div>
+   <div class="panel">
+    <h3>Low Stock Alerts</h3>
+    <div id="dashboardAlerts"></div>
+   </div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <div id="productsTab" class="hidden">
+   <h2>Product Management</h2>
+   <div class="panel">
+    <h3>Add or Edit Product</h3>
+    <form onsubmit="saveProduct(event)">
+     <input type="hidden" id="productEditId">
+     <label>Product Name</label>
+     <input id="productName" required>
+     <label>Category</label>
+     <select id="productCategory">
+      <option>Bracelets</option>
+      <option>Necklaces</option>
+      <option>Rings</option>
+      <option>Earrings</option>
+      <option>Watches</option>
+     </select>
+     <label>Price (KSh)</label>
+     <input id="productPrice" type="number" min="1" required>
+     <label>Quantity</label>
+     <input id="productQuantity" type="number" min="0" required>
+     <label>Product Image URL</label>
+     <input id="productImage" type="url">
+     <label>Description</label>
+     <textarea id="productDescription"></textarea>
+     <button class="btn">SAVE PRODUCT</button>
+     <button type="button" class="btn btn-outline" onclick="clearProductForm()">CLEAR</button>
+    </form>
+   </div>
+   <div class="tablewrap">
+    <table>
+     <thead><tr><th>Product</th><th>Category</th><th>Price</th><th>Stock</th><th>Actions</th></tr></thead>
+     <tbody id="productTable"></tbody>
+    </table>
+   </div>
+  </div>
+
+  <!-- INVENTORY -->
+  <div id="inventoryTab" class="hidden">
+   <h2>Inventory Management</h2>
+   <p>Monitor jewelry quantities, stock value and products requiring restocking.</p>
+   <div class="stats">
+    <div class="stat">Total Units<strong id="inventoryUnits">0</strong></div>
+    <div class="stat">Stock Value<strong id="inventoryValue">KSh 0</strong></div>
+    <div class="stat">Low Stock Items<strong id="inventoryLow">0</strong></div>
+   </div>
+   <div class="panel">
+    <h3>Inventory Records</h3>
+    <div class="tablewrap">
+     <table>
+      <thead><tr><th>Product</th><th>Category</th><th>Quantity</th><th>Unit Price</th><th>Total Value</th><th>Status</th></tr></thead>
+      <tbody id="inventoryTable"></tbody>
+     </table>
+    </div>
+   </div>
+   <div class="panel">
+    <h3>Restocking Alerts</h3>
+    <div id="restockAlerts"></div>
+   </div>
+  </div>
+
+  <!-- ORDERS -->
+  <div id="ordersTab" class="hidden">
+   <h2>Customer Orders and Bookings</h2>
+   <div class="tablewrap">
+    <table>
+     <thead><tr><th>Customer</th><th>Product</th><th>Total</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
+     <tbody id="ordersTable"></tbody>
+    </table>
+   </div>
+  </div>
+
+  <!-- SALES -->
+  <div id="salesTab" class="hidden">
+   <h2>Sales Records</h2>
+   <div class="stats">
+    <div class="stat">Completed Sales<strong id="salesCount">0</strong></div>
+    <div class="stat">Total Revenue<strong id="salesAmount">KSh 0</strong></div>
+   </div>
+   <div class="tablewrap">
+    <table>
+     <thead><tr><th>Date</th><th>Customer</th><th>Amount</th><th>Payment Method</th></tr></thead>
+     <tbody id="salesTable"></tbody>
+    </table>
+   </div>
+  </div>
+
+  <!-- REPORTS -->
+  <div id="reportsTab" class="hidden">
+   <h2>Business Reports</h2>
+   <div class="stats">
+    <div class="stat">Products<strong id="reportProducts">0</strong></div>
+    <div class="stat">Inventory Value<strong id="reportStockValue">KSh 0</strong></div>
+    <div class="stat">Orders<strong id="reportOrders">0</strong></div>
+    <div class="stat">Sales Revenue<strong id="reportRevenue">KSh 0</strong></div>
+   </div>
+   <div class="panel">
+    <h3>Stock Summary by Category</h3>
+    <div id="categorySummary"></div>
+   </div>
+   <div class="panel">
+    <h3>Business Performance</h3>
+    <div id="businessSummary"></div>
+   </div>
+   <button class="btn" onclick="downloadReport()">DOWNLOAD INVENTORY REPORT</button>
+   <button class="btn btn-outline" onclick="downloadSalesReport()">DOWNLOAD SALES REPORT</button>
+  </div>
+
+ </section>
+</div>
+
 </main>
 
 <footer>
@@ -234,99 +420,460 @@ footer{background:var(--deep);color:#eee;padding:35px;text-align:center}
  <p>Jewelry Management System | Nairobi, Kenya</p>
  <p>© 2026 Royal Gems. All Rights Reserved.</p>
 </footer>
+
 <div id="notice" role="status"></div>
 
 <script>
-const starter=[
-{name:"Classic Gold Bracelet",category:"Bracelets",price:2500,qty:12,image:"https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600",description:"Elegant everyday bracelet."},
-{name:"Pearl Pendant Necklace",category:"Necklaces",price:3500,qty:8,image:"https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600",description:"Beautiful pearl pendant."},
-{name:"Elegant Gold Ring",category:"Rings",price:1800,qty:15,image:"https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600",description:"Timeless gold ring."},
-{name:"Pearl Earrings",category:"Earrings",price:1200,qty:20,image:"https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600",description:"Elegant pearl earrings."},
-{name:"Luxury Ladies Watch",category:"Watches",price:5000,qty:5,image:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600",description:"Stylish wristwatch."},
-{name:"Silver Charm Bracelet",category:"Bracelets",price:2200,qty:10,image:"https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=600",description:"Charming silver bracelet."},
-{name:"Layered Gold Necklace",category:"Necklaces",price:4200,qty:7,image:"https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=600",description:"Layered necklace for special occasions."},
-{name:"Diamond Style Ring",category:"Rings",price:2800,qty:9,image:"https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=600",description:"Sparkling statement ring."}
+const initialProducts=[
+ {name:"Classic Gold Bracelet",category:"Bracelets",price:2500,qty:12,image:"https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600",description:"Elegant bracelet for everyday style."},
+ {name:"Pearl Pendant Necklace",category:"Necklaces",price:3500,qty:8,image:"https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600",description:"Beautiful pearl pendant necklace."},
+ {name:"Elegant Gold Ring",category:"Rings",price:1800,qty:15,image:"https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600",description:"A timeless jewelry piece."},
+ {name:"Pearl Earrings",category:"Earrings",price:1200,qty:20,image:"https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600",description:"Elegant pearl earrings."},
+ {name:"Luxury Ladies Watch",category:"Watches",price:5000,qty:5,image:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600",description:"Stylish ladies wristwatch."},
+ {name:"Silver Charm Bracelet",category:"Bracelets",price:2200,qty:10,image:"https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=600",description:"Beautiful silver charm bracelet."},
+ {name:"Layered Gold Necklace",category:"Necklaces",price:4200,qty:7,image:"https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=600",description:"Layered necklace for special occasions."},
+ {name:"Diamond Style Ring",category:"Rings",price:2800,qty:9,image:"https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=600",description:"Sparkling statement ring."}
 ];
-let products=JSON.parse(localStorage.getItem("rg_products")||"null")||starter;
-let orders=JSON.parse(localStorage.getItem("rg_orders")||"[]");
-let sales=JSON.parse(localStorage.getItem("rg_sales")||"[]");
-let cart=JSON.parse(localStorage.getItem("rg_cart")||"[]");
-let logged=false;
-function store(){
-localStorage.setItem("rg_products",JSON.stringify(products));
-localStorage.setItem("rg_orders",JSON.stringify(orders));
-localStorage.setItem("rg_sales",JSON.stringify(sales));
-localStorage.setItem("rg_cart",JSON.stringify(cart));
+
+function load(key,fallback){
+ try{
+  const value=JSON.parse(localStorage.getItem(key));
+  return value===null?fallback:value;
+ }catch(e){return fallback}
 }
-function money(n){return "KSh "+Number(n).toLocaleString("en-KE")}
-function notify(s){let n=document.getElementById("notice");n.textContent=s;n.style.display="block";setTimeout(()=>n.style.display="none",2800)}
-function page(p){
-if(p==="admin"&&!logged)p="login";
-document.querySelectorAll("main>div").forEach(x=>x.classList.add("hidden"));
-document.getElementById(p).classList.remove("hidden");
-if(p==="shop")renderShop();
-if(p==="cart")renderCart();
-if(p==="checkout")document.getElementById("checkoutTotal").textContent="Order total: "+money(cart.reduce((a,c)=>a+c.price*c.qty,0));
-if(p==="admin")refreshAdmin();
-window.scrollTo(0,0);
+
+let products=load("royal_products",initialProducts);
+let orders=load("royal_orders",[]);
+let sales=load("royal_sales",[]);
+let cart=load("royal_cart",[]);
+let isAdmin=false;
+
+function saveData(){
+ localStorage.setItem("royal_products",JSON.stringify(products));
+ localStorage.setItem("royal_orders",JSON.stringify(orders));
+ localStorage.setItem("royal_sales",JSON.stringify(sales));
+ localStorage.setItem("royal_cart",JSON.stringify(cart));
 }
-function productCard(p,i){
-return `<article class="card"><img src="${escapeHTML(p.image||"")}" alt="${escapeHTML(p.name)}" onerror="this.src='https://placehold.co/600x400?text=Jewelry'"><div class="card-body"><span class="tag">${escapeHTML(p.category)}</span><h3>${escapeHTML(p.name)}</h3><p>${escapeHTML(p.description||"Beautiful jewelry piece.")}</p><p class="price">${money(p.price)}</p><p>${p.qty>0?p.qty+" available":"Out of stock"}</p><button class="btn" onclick="addCart(${i})" ${p.qty<1?"disabled":""}>Add to Cart</button><button class="btn outline" onclick="bookNow(${i})">Book Now</button></div></article>`;
+
+function el(id){return document.getElementById(id)}
+function money(n){return "KSh "+Number(n||0).toLocaleString("en-KE")}
+function safe(s){
+ return String(s??"").replace(/[&<>"']/g,c=>({
+ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ }[c]));
 }
-function escapeHTML(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function notify(message){
+ el("notice").textContent=message;
+ el("notice").style.display="block";
+ setTimeout(()=>el("notice").style.display="none",3000);
+}
+
+function showPage(name){
+ if(name==="adminDashboard"&&!isAdmin)name="adminLogin";
+ document.querySelectorAll("main>div").forEach(x=>x.classList.add("hidden"));
+ el(name).classList.remove("hidden");
+
+ if(name==="shop")renderShop();
+ if(name==="cart")renderCart();
+ if(name==="checkout"){
+  el("checkoutTotal").textContent="Order total: "+money(cartTotal());
+ }
+ if(name==="adminDashboard")refreshAdmin();
+
+ window.scrollTo(0,0);
+}
+
+function cartTotal(){
+ return cart.reduce((sum,item)=>sum+item.price*item.qty,0);
+}
+
+function updateCartCount(){
+ el("cartCount").textContent=cart.reduce((sum,item)=>sum+item.qty,0);
+}
+
+function productCard(p,index){
+ return `
+ <article class="card">
+  <img src="${safe(p.image||"https://placehold.co/600x400?text=Jewelry")}"
+   alt="${safe(p.name)}"
+   onerror="this.src='https://placehold.co/600x400?text=Jewelry'">
+  <div class="card-body">
+   <span class="badge">${safe(p.category)}</span>
+   <h3>${safe(p.name)}</h3>
+   <p>${safe(p.description)}</p>
+   <p class="price">${money(p.price)}</p>
+   <p class="muted">${p.qty>0?p.qty+" available":"Out of stock"}</p>
+   <button class="btn" onclick="addToCart(${index})" ${p.qty<1?"disabled":""}>ADD TO CART</button>
+   <button class="btn btn-outline" onclick="openBooking(${index})">BOOK NOW</button>
+  </div>
+ </article>`;
+}
+
+function renderFeatured(){
+ el("featuredProducts").innerHTML=products.slice(0,4).map((p,i)=>productCard(p,i)).join("");
+}
+
 function renderShop(){
-let q=document.getElementById("search").value.toLowerCase(),f=document.getElementById("filter").value;
-document.getElementById("products").innerHTML=products.map((p,i)=>({p,i})).filter(x=>(x.p.name.toLowerCase().includes(q)||x.p.category.toLowerCase().includes(q))&&(!f||x.p.category===f)).map(x=>productCard(x.p,x.i)).join("")||"<p>No products found.</p>";
+ const query=el("searchInput").value.toLowerCase();
+ const category=el("categoryFilter").value;
+
+ const result=products.map((p,i)=>({p,i})).filter(x=>
+  (x.p.name.toLowerCase().includes(query)||
+   x.p.category.toLowerCase().includes(query))&&
+  (!category||x.p.category===category)
+ );
+
+ el("shopProducts").innerHTML=result.map(x=>productCard(x.p,x.i)).join("")
+ ||'<div class="empty">No matching products found.</div>';
 }
-function addCart(i){
-if(!products[i]||products[i].qty<1)return notify("This product is unavailable.");
-let found=cart.find(c=>c.id===i);
-if(found){if(found.qty>=products[i].qty)return notify("Not enough stock.");found.qty++}
-else cart.push({id:i,name:products[i].name,price:products[i].price,qty:1});
-store();document.getElementById("cartCount").textContent=cart.reduce((a,c)=>a+c.qty,0);notify("Added to cart!");
+
+function addToCart(index){
+ const p=products[index];
+ if(!p||p.qty<1)return notify("Product is unavailable.");
+
+ const existing=cart.find(x=>x.id===index);
+
+ if(existing){
+  if(existing.qty>=p.qty)return notify("Not enough stock available.");
+  existing.qty++;
+ }else{
+  cart.push({id:index,name:p.name,price:p.price,qty:1});
+ }
+
+ saveData();
+ updateCartCount();
+ notify("Product added to cart.");
 }
+
 function renderCart(){
-document.getElementById("cartItems").innerHTML=cart.map((c,i)=>`<div class="panel"><b>${escapeHTML(c.name)}</b> — ${money(c.price)} × ${c.qty}<button class="btn outline" onclick="removeCart(${i})">Remove</button></div>`).join("")||"Your cart is empty.";
-document.getElementById("cartTotal").textContent="Total: "+money(cart.reduce((a,c)=>a+c.price*c.qty,0));
+ el("cartContents").innerHTML=cart.map((item,i)=>`
+ <div class="panel">
+  <h3>${safe(item.name)}</h3>
+  <p>${money(item.price)} × ${item.qty}</p>
+  <button class="btn btn-outline" onclick="removeCart(${i})">REMOVE</button>
+ </div>
+ `).join("")||'<div class="empty">Your shopping cart is empty.</div>';
+
+ el("cartTotal").textContent="Total: "+money(cartTotal());
 }
-function removeCart(i){cart.splice(i,1);store();updateCart();renderCart()}
-function updateCart(){document.getElementById("cartCount").textContent=cart.reduce((a,c)=>a+c.qty,0)}
-function checkout(e){
-e.preventDefault();if(!cart.length)return notify("Your cart is empty.");
-for(let c of cart)if(!products[c.id]||products[c.id].qty<c.qty)return notify("Insufficient stock for "+c.name);
-let order={id:Date.now(),name:buyerName.value,email:buyerEmail.value,phone:buyerPhone.value,items:cart.map(c=>({...c})),total:cart.reduce((a,c)=>a+c.price*c.qty,0),payment:payment.value,status:"Pending",date:new Date().toLocaleDateString()};
-orders.push(order);cart.forEach(c=>products[c.id].qty-=c.qty);sales.push({date:order.date,name:order.name,total:order.total,payment:order.payment});cart=[];store();updateCart();e.target.reset();notify("Order submitted successfully!");page("home");
+
+function removeCart(i){
+ cart.splice(i,1);
+ saveData();
+ updateCartCount();
+ renderCart();
 }
-function bookNow(i){document.getElementById("bookProduct").innerHTML=products.map((p,j)=>`<option value="${j}" ${i===j?"selected":""}>${escapeHTML(p.name)} — ${money(p.price)}</option>`).join("");page("booking")}
-function makeBooking(e){
-e.preventDefault();let i=Number(bookProduct.value),q=Number(bookQty.value),p=products[i];if(!p||q<1||q>p.qty)return notify("Please check the available quantity.");
-orders.push({id:Date.now(),name:bookName.value,email:bookEmail.value,phone:bookPhone.value,items:[{name:p.name,qty:q,price:p.price}],total:p.price*q,payment:"Not paid",status:"Booking request",date:bookDate.value});store();e.target.reset();notify("Booking request submitted!");page("home");
+
+function placeOrder(event){
+ event.preventDefault();
+
+ if(!cart.length)return notify("Your shopping cart is empty.");
+
+ for(const item of cart){
+  if(!products[item.id]||products[item.id].qty<item.qty){
+   return notify("Insufficient stock for "+item.name);
+  }
+ }
+
+ const order={
+  id:Date.now(),
+  name:el("customerName").value,
+  email:el("customerEmail").value,
+  phone:el("customerPhone").value,
+  items:cart.map(x=>({...x})),
+  total:cartTotal(),
+  payment:el("paymentMethod").value,
+  status:"Pending",
+  date:new Date().toLocaleDateString()
+ };
+
+ for(const item of cart)products[item.id].qty-=item.qty;
+
+ orders.push(order);
+ cart=[];
+ saveData();
+ updateCartCount();
+ event.target.reset();
+
+ notify("Order successfully recorded.");
+ showPage("home");
 }
-function contactMessage(e){e.preventDefault();notify("Thank you! Your enquiry has been recorded for this demonstration.");e.target.reset()}
-function login(e){e.preventDefault();if(username.value==="admin"&&password.value==="admin123"){logged=true;notify("Welcome, Administrator!");page("admin")}else notify("Incorrect username or password.")}
-function logout(){logged=false;page("home");notify("Logged out.")}
-function adminTab(t){["dashboard","manage","bookings","sales"].forEach(x=>document.getElementById(x+"Tab").classList.toggle("hidden",x!==t));refreshAdmin()}
+
+function openBooking(index){
+ el("bookingProduct").innerHTML=products.map((p,i)=>
+ `<option value="${i}" ${i===index?"selected":""}>${safe(p.name)} - ${money(p.price)}</option>`
+ ).join("");
+ showPage("booking");
+}
+
+function submitBooking(event){
+ event.preventDefault();
+
+ const index=Number(el("bookingProduct").value);
+ const quantity=Number(el("bookingQuantity").value);
+ const p=products[index];
+
+ if(!p||quantity<1||quantity>p.qty){
+  return notify("Please enter a valid available quantity.");
+ }
+
+ orders.push({
+  id:Date.now(),
+  name:el("bookingName").value,
+  email:el("bookingEmail").value,
+  phone:el("bookingPhone").value,
+  items:[{name:p.name,qty:quantity,price:p.price}],
+  total:p.price*quantity,
+  payment:"Not paid",
+  status:"Booking Request",
+  date:el("bookingDate").value
+ });
+
+ saveData();
+ event.target.reset();
+ notify("Booking request submitted.");
+ showPage("home");
+}
+
+function submitEnquiry(event){
+ event.preventDefault();
+ notify("Thank you for your enquiry.");
+ event.target.reset();
+}
+
+function adminLogin(event){
+ event.preventDefault();
+
+ if(el("adminUsername").value==="admin"&&
+    el("adminPassword").value==="admin123"){
+  isAdmin=true;
+  notify("Administrator login successful.");
+  showPage("adminDashboard");
+ }else{
+  notify("Incorrect username or password.");
+ }
+}
+
+function adminLogout(){
+ isAdmin=false;
+ showPage("home");
+ notify("You have logged out.");
+}
+
+function adminTab(tab){
+ ["overview","products","inventory","orders","sales","reports"].forEach(name=>{
+  el(name+"Tab").classList.toggle("hidden",name!==tab);
+ });
+ refreshAdmin();
+}
+
 function refreshAdmin(){
-document.getElementById("totalProducts").textContent=products.length;
-document.getElementById("totalStock").textContent=products.reduce((a,p)=>a+Number(p.qty),0);
-document.getElementById("totalOrders").textContent=orders.length;
-document.getElementById("totalSales").textContent=money(sales.reduce((a,s)=>a+s.total,0));
-document.getElementById("productRows").innerHTML=products.map((p,i)=>`<tr><td>${escapeHTML(p.name)}</td><td>${escapeHTML(p.category)}</td><td>${money(p.price)}</td><td>${p.qty}</td><td><button onclick="editProduct(${i})">Edit</button> <button onclick="deleteProduct(${i})">Delete</button></td></tr>`).join("");
-document.getElementById("orderRows").innerHTML=orders.map((o,i)=>`<tr><td>${escapeHTML(o.name)}</td><td>${escapeHTML(o.items.map(x=>x.name+" × "+x.qty).join(", "))}</td><td>${money(o.total)}</td><td>${escapeHTML(o.status)}</td><td><button onclick="completeOrder(${i})">Complete</button></td></tr>`).join("");
-document.getElementById("salesRows").innerHTML=sales.map(s=>`<tr><td>${escapeHTML(s.date)}</td><td>${escapeHTML(s.name)}</td><td>${money(s.total)}</td><td>${escapeHTML(s.payment)}</td></tr>`).join("");
+ const stock=products.reduce((a,p)=>a+Number(p.qty),0);
+ const value=products.reduce((a,p)=>a+p.price*p.qty,0);
+ const revenue=sales.reduce((a,s)=>a+s.total,0);
+ const low=products.filter(p=>p.qty<=5);
+
+ el("statProducts").textContent=products.length;
+ el("statStock").textContent=stock;
+ el("statOrders").textContent=orders.length;
+ el("statRevenue").textContent=money(revenue);
+
+ el("dashboardAlerts").innerHTML=low.length?
+ low.map(p=>`<p class="badge badge-red">${safe(p.name)} — Only ${p.qty} left</p>`).join("")
+ :'<p class="badge badge-green">All products have sufficient stock.</p>';
+
+ el("productTable").innerHTML=products.map((p,i)=>`
+ <tr>
+  <td>${safe(p.name)}</td>
+  <td>${safe(p.category)}</td>
+  <td>${money(p.price)}</td>
+  <td>${p.qty}</td>
+  <td>
+   <button onclick="editProduct(${i})">Edit</button>
+   <button onclick="deleteProduct(${i})">Delete</button>
+  </td>
+ </tr>`).join("");
+
+ el("inventoryUnits").textContent=stock;
+ el("inventoryValue").textContent=money(value);
+ el("inventoryLow").textContent=low.length;
+
+ el("inventoryTable").innerHTML=products.map(p=>`
+ <tr>
+  <td>${safe(p.name)}</td>
+  <td>${safe(p.category)}</td>
+  <td>${p.qty}</td>
+  <td>${money(p.price)}</td>
+  <td>${money(p.price*p.qty)}</td>
+  <td>${p.qty<=5?
+   '<span class="badge badge-red">Low Stock</span>':
+   '<span class="badge badge-green">Available</span>'}
+  </td>
+ </tr>`).join("");
+
+ el("restockAlerts").innerHTML=low.length?
+ low.map(p=>`<p>${safe(p.name)}: ${p.qty} units remaining.</p>`).join("")
+ :"<p>No restocking alerts.</p>";
+
+ el("ordersTable").innerHTML=orders.map((o,i)=>`
+ <tr>
+  <td>${safe(o.name)}</td>
+  <td>${safe(o.items.map(x=>x.name+" × "+x.qty).join(", "))}</td>
+  <td>${money(o.total)}</td>
+  <td>${safe(o.date)}</td>
+  <td>${safe(o.status)}</td>
+  <td>${o.status==="Completed"?"Completed":
+   `<button onclick="completeOrder(${i})">Complete</button>`}
+  </td>
+ </tr>`).join("");
+
+ el("salesCount").textContent=sales.length;
+ el("salesAmount").textContent=money(revenue);
+
+ el("salesTable").innerHTML=sales.map(s=>`
+ <tr>
+  <td>${safe(s.date)}</td>
+  <td>${safe(s.name)}</td>
+  <td>${money(s.total)}</td>
+  <td>${safe(s.payment)}</td>
+ </tr>`).join("");
+
+ el("reportProducts").textContent=products.length;
+ el("reportStockValue").textContent=money(value);
+ el("reportOrders").textContent=orders.length;
+ el("reportRevenue").textContent=money(revenue);
+
+ const categories=["Bracelets","Necklaces","Rings","Earrings","Watches"];
+
+ el("categorySummary").innerHTML=categories.map(category=>{
+  const list=products.filter(p=>p.category===category);
+  const units=list.reduce((a,p)=>a+p.qty,0);
+  return `<p><b>${category}:</b> ${list.length} products, ${units} units</p>`;
+ }).join("");
+
+ el("businessSummary").innerHTML=`
+  <p>Total registered products: ${products.length}</p>
+  <p>Total available stock: ${stock} units</p>
+  <p>Total inventory value: ${money(value)}</p>
+  <p>Total customer orders: ${orders.length}</p>
+  <p>Completed sales: ${sales.length}</p>
+  <p>Total sales revenue: ${money(revenue)}</p>
+ `;
 }
-function saveProduct(e){
-e.preventDefault();let p={name:pname.value,category:pcategory.value,price:Number(pprice.value),qty:Number(pqty.value),image:pimage.value,description:pdescription.value};
-let id=editId.value;if(id==="")products.push(p);else products[Number(id)]=p;
-store();clearProduct();refreshAdmin();notify("Product saved successfully.");
+
+function saveProduct(event){
+ event.preventDefault();
+
+ const product={
+  name:el("productName").value.trim(),
+  category:el("productCategory").value,
+  price:Number(el("productPrice").value),
+  qty:Number(el("productQuantity").value),
+  image:el("productImage").value.trim(),
+  description:el("productDescription").value.trim()
+ };
+
+ if(!product.name||product.price<=0||product.qty<0){
+  return notify("Please enter valid product information.");
+ }
+
+ const id=el("productEditId").value;
+
+ if(id==="")products.push(product);
+ else products[Number(id)]=product;
+
+ saveData();
+ clearProductForm();
+ refreshAdmin();
+ renderFeatured();
+ notify("Product saved successfully.");
 }
-function editProduct(i){let p=products[i];editId.value=i;pname.value=p.name;pcategory.value=p.category;pprice.value=p.price;pqty.value=p.qty;pimage.value=p.image;pdescription.value=p.description;window.scrollTo(0,0)}
-function clearProduct(){document.querySelector("#manageTab form").reset();editId.value=""}
-function deleteProduct(i){if(confirm("Delete this product?")){products.splice(i,1);store();refreshAdmin();notify("Product deleted.")}}
-function completeOrder(i){orders[i].status="Completed";store();refreshAdmin();notify("Order marked completed.")}
-document.getElementById("featured").innerHTML=products.slice(0,4).map(productCard).join("");
-updateCart();
+
+function editProduct(i){
+ const p=products[i];
+
+ el("productEditId").value=i;
+ el("productName").value=p.name;
+ el("productCategory").value=p.category;
+ el("productPrice").value=p.price;
+ el("productQuantity").value=p.qty;
+ el("productImage").value=p.image;
+ el("productDescription").value=p.description;
+
+ window.scrollTo(0,0);
+}
+
+function clearProductForm(){
+ el("productEditId").value="";
+ el("productsTab").querySelector("form").reset();
+}
+
+function deleteProduct(i){
+ if(!confirm("Are you sure you want to delete this product?"))return;
+
+ products.splice(i,1);
+ saveData();
+ refreshAdmin();
+ renderFeatured();
+ notify("Product deleted.");
+}
+
+function completeOrder(i){
+ const order=orders[i];
+
+ if(order.status==="Completed")return;
+
+ order.status="Completed";
+
+ sales.push({
+  date:new Date().toLocaleDateString(),
+  name:order.name,
+  total:order.total,
+  payment:order.payment
+ });
+
+ saveData();
+ refreshAdmin();
+ notify("Order completed and recorded as a sale.");
+}
+
+function downloadCSV(filename,rows){
+ const csv=rows.map(row=>row.map(value=>
+  '"'+String(value??"").replace(/"/g,'""')+'"'
+ ).join(",")).join("\n");
+
+ const blob=new Blob([csv],{type:"text/csv;charset=utf-8"});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement("a");
+
+ a.href=url;
+ a.download=filename;
+ a.click();
+
+ URL.revokeObjectURL(url);
+}
+
+function downloadReport(){
+ const rows=[
+  ["Product","Category","Price","Quantity","Stock Value"],
+  ...products.map(p=>[p.name,p.category,p.price,p.qty,p.price*p.qty])
+ ];
+ downloadCSV("Jewelry_Inventory_Report.csv",rows);
+}
+
+function downloadSalesReport(){
+ const rows=[
+  ["Date","Customer","Amount","Payment Method"],
+  ...sales.map(s=>[s.date,s.name,s.total,s.payment])
+ ];
+ downloadCSV("Jewelry_Sales_Report.csv",rows);
+}
+
+renderFeatured();
+updateCartCount();
+saveData();
 </script>
+
 </body>
 </html>
 
