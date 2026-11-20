@@ -3,500 +3,329 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Luxe Jewelry Management System</title>
-
+<title>Royal Gems | Jewelry Management System</title>
 <style>
-:root{
---purple:#2b193a;
---deep:#1c1028;
---gold:#c29d59;
---cream:#f8f4ed;
---white:#fff;
---muted:#887d90;
---green:#25865a;
---red:#c34c4c;
-}
+:root{--purple:#29133e;--deep:#180c27;--gold:#d9ad55;--cream:#fffaf1;--muted:#a99ab5}
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:var(--cream);color:#30283a}
+body{margin:0;font-family:Arial,sans-serif;background:var(--cream);color:#29202f}
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
-.hidden{display:none!important}
-button:disabled{opacity:.5;cursor:not-allowed}
-
-.login-screen{
-min-height:100vh;display:flex;align-items:center;justify-content:center;
-background:linear-gradient(135deg,var(--deep),#50365c);padding:20px
-}
-.login-card{
-background:white;width:100%;max-width:430px;padding:35px;
-border-radius:18px;box-shadow:0 15px 45px #0004
-}
-.logo{text-align:center;color:var(--gold);font-size:36px}
-.login-card h2{text-align:center;color:var(--purple)}
-.login-card p{text-align:center;color:var(--muted)}
-.login-card button{width:100%}
-.login-switch{text-align:center;margin-top:18px}
-
-.app{min-height:100vh}
-.sidebar{
-width:240px;background:var(--purple);color:white;
-position:fixed;top:0;bottom:0;padding:25px 15px;overflow:auto
-}
-.brand{font-size:23px;color:var(--gold);font-weight:bold;margin:8px 10px 35px}
-.brand small{display:block;font-size:10px;letter-spacing:3px;color:#ddd;margin-top:6px}
-.nav-label{color:#ad9bb8;font-size:11px;margin:22px 12px 8px}
-.nav button{
-display:block;width:100%;text-align:left;padding:13px 14px;
-border:0;border-radius:8px;background:none;color:#eee;margin:4px 0
-}
-.nav button:hover,.nav button.active{background:var(--gold);color:var(--purple)}
-.main{margin-left:240px;padding:28px;min-height:100vh}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:28px}
-.topbar h1{margin:0;color:var(--purple);font-size:26px}
-.user-info{color:var(--muted);font-size:13px}
-.logout{background:#eee;color:var(--purple);border:0;padding:10px 16px;border-radius:8px}
-
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:17px;margin-bottom:25px}
-.card,.panel{
-background:white;padding:22px;border-radius:13px;
-box-shadow:0 3px 15px #24152a0c;margin-bottom:20px
-}
-.card span{color:var(--muted);font-size:13px}
-.card h2{color:var(--purple);font-size:27px;margin:12px 0 0}
-.panel h2,.panel h3{color:var(--purple);margin-top:0}
+header{background:var(--deep);color:white;padding:17px 6%;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+.logo{font-size:25px;color:var(--gold);font-weight:bold;letter-spacing:2px}
+nav{display:flex;gap:18px;flex-wrap:wrap}
+nav button{background:none;border:0;color:white;font-weight:bold}
+nav button:hover{color:var(--gold)}
+.hero{background:linear-gradient(110deg,#29133e,#50316c);color:white;padding:75px 8%;text-align:center}
+.hero h1{font-size:clamp(35px,6vw,60px);margin:10px}
+.hero p{color:#eadcf1;font-size:18px}
 .gold{color:var(--gold)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-form{display:grid;gap:13px}
-label{font-size:13px;font-weight:bold;color:var(--purple)}
-input,select,textarea{
-width:100%;padding:12px;border:1px solid #ddd;border-radius:7px;
-background:white;outline:none
-}
-input:focus,select:focus,textarea:focus{border-color:var(--gold)}
-.btn{
-border:0;padding:12px 17px;border-radius:7px;
-background:var(--gold);color:var(--purple);font-weight:bold
-}
-.btn-dark{background:var(--purple);color:white}
-.btn-danger{background:#f8e4e4;color:var(--red)}
-.btn-small{padding:7px 10px;font-size:12px;margin:2px}
-.actions{display:flex;gap:8px;flex-wrap:wrap}
-.table-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:600px}
-th,td{padding:13px;text-align:left;border-bottom:1px solid #eee;font-size:13px}
-th{background:#f8f4ed;color:var(--purple)}
-.badge{padding:5px 9px;border-radius:20px;font-size:11px;background:#eee}
-.badge.green{background:#e0f3e8;color:var(--green)}
-.badge.red{background:#fbe5e5;color:var(--red)}
-.badge.gold-bg{background:#f6eddc;color:#89652c}
-.product-card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 3px 15px #0001}
-.product-image{height:160px;background:#eee;display:flex;align-items:center;justify-content:center;font-size:60px}
-.product-details{padding:16px}
-.product-details h3{color:var(--purple);margin:5px 0}
-.product-details p{font-size:13px;color:var(--muted)}
-.price{color:#a57c35;font-size:20px;font-weight:bold}
-.notice{background:#fff4d9;padding:13px;border-radius:8px;font-size:13px;color:#755722;margin:12px 0}
-.empty{text-align:center;padding:30px;color:var(--muted)}
-footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
-
-@media(max-width:760px){
-.sidebar{position:relative;width:100%;height:auto}
-.brand{margin-bottom:15px}
-.nav{display:flex;flex-wrap:wrap}
-.nav-label{width:100%}
-.nav button{width:auto;padding:10px}
-.main{margin-left:0;padding:17px}
-.topbar{align-items:flex-start}
-.topbar h1{font-size:21px}
-}
+.btn{background:var(--gold);color:#21142b;border:0;padding:12px 20px;border-radius:5px;font-weight:bold;margin:5px}
+.btn:hover{background:#f0ca7d}
+.outline{background:transparent;border:1px solid var(--gold);color:var(--gold)}
+section{padding:40px 6%}
+.heading{text-align:center;color:var(--purple);margin-bottom:25px}
+.categories,.products,.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:20px}
+.category,.card,.stat,.panel{background:white;border-radius:10px;padding:20px;box-shadow:0 3px 15px #25153b12}
+.category{text-align:center;color:var(--purple);font-weight:bold}
+.card{padding:0;overflow:hidden}
+.card img{width:100%;height:210px;object-fit:cover;background:#eee}
+.card-body{padding:17px}
+.price{font-weight:bold;color:#9a7025;font-size:19px}
+.tag{font-size:12px;color:#705d7b}
+input,select,textarea{width:100%;padding:12px;margin:7px 0 14px;border:1px solid #ddd;border-radius:5px}
+label{font-weight:bold;color:var(--purple);font-size:14px}
+.form{max-width:550px;margin:auto;background:white;padding:25px;border-radius:10px}
+.hidden{display:none!important}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.toolbar input,.toolbar select{max-width:300px}
+table{width:100%;border-collapse:collapse;background:white}
+th,td{padding:12px;border-bottom:1px solid #eee;text-align:left}
+th{background:var(--purple);color:white}
+.tablewrap{overflow-x:auto}
+.stat strong{display:block;font-size:27px;color:#a47728;margin-top:10px}
+.panel{margin:20px 0}
+footer{background:var(--deep);color:#eee;padding:35px;text-align:center}
+#notice{position:fixed;bottom:20px;right:20px;background:var(--purple);color:white;padding:14px 20px;border-radius:8px;display:none;z-index:10}
+@media(max-width:600px){header{justify-content:center}nav{justify-content:center}.hero{padding:45px 5%}section{padding:30px 5%}}
 </style>
 </head>
-
 <body>
 
-<!-- LOGIN -->
-<section id="loginScreen" class="login-screen">
-<div class="login-card">
-<div class="logo">✧</div>
-<h2>LUXE JEWELRY</h2>
-<p>Jewelry Management System</p>
+<header>
+ <div class="logo">ROYAL <span class="gold">GEMS</span></div>
+ <nav>
+  <button onclick="page('home')">Home</button>
+  <button onclick="page('shop')">Shop</button>
+  <button onclick="page('about')">About</button>
+  <button onclick="page('contact')">Contact</button>
+  <button onclick="page('cart')">Cart (<span id="cartCount">0</span>)</button>
+  <button onclick="page('login')">Admin</button>
+ </nav>
+</header>
 
-<div id="loginFormArea">
-<form id="loginForm">
-<label>Username or Email</label>
-<input id="loginUser" required placeholder="Enter username or email">
-<label>Password</label>
-<input id="loginPass" type="password" required placeholder="Enter password">
-<button class="btn" type="submit">LOGIN</button>
-</form>
-<p class="notice">Demo administrator: admin / admin123</p>
-<div class="login-switch">
-<button class="btn btn-dark" id="showRegister" type="button">Create Customer Account</button>
-</div>
+<main>
+<div id="home">
+ <div class="hero">
+  <p class="gold">ELEGANCE • BEAUTY • TIMELESS STYLE</p>
+  <h1>Discover Your <span class="gold">Perfect Shine</span></h1>
+  <p>Explore beautiful jewelry pieces selected to make every moment special.</p>
+  <button class="btn" onclick="page('shop')">EXPLORE COLLECTION</button>
+  <button class="btn outline" onclick="page('about')">OUR STORY</button>
+ </div>
+ <section>
+  <h2 class="heading">Shop By Category</h2>
+  <div class="categories">
+   <div class="category">💎 Bracelets</div>
+   <div class="category">📿 Necklaces</div>
+   <div class="category">💍 Rings</div>
+   <div class="category">✨ Earrings</div>
+   <div class="category">⌚ Watches</div>
+  </div>
+ </section>
+ <section>
+  <h2 class="heading">Featured Jewelry</h2>
+  <div id="featured" class="products"></div>
+  <center><button class="btn" onclick="page('shop')">VIEW ALL PRODUCTS</button></center>
+ </section>
 </div>
 
-<div id="registerArea" class="hidden">
-<h3>Customer Registration</h3>
-<form id="registerForm">
-<label>Full Name</label><input id="regName" required>
-<label>Email</label><input id="regEmail" type="email" required>
-<label>Phone Number</label><input id="regPhone" required>
-<label>Password</label><input id="regPassword" type="password" minlength="4" required>
-<button class="btn" type="submit">REGISTER</button>
-</form>
-<div class="login-switch">
-<button id="showLogin" class="btn btn-dark" type="button">Back to Login</button>
+<div id="shop" class="hidden">
+ <section>
+  <h2 class="heading">Our Jewelry Collection</h2>
+  <div class="toolbar">
+   <input id="search" placeholder="Search jewelry..." oninput="renderShop()">
+   <select id="filter" onchange="renderShop()">
+    <option value="">All Categories</option>
+    <option>Bracelets</option><option>Necklaces</option>
+    <option>Rings</option><option>Earrings</option><option>Watches</option>
+   </select>
+  </div>
+  <div id="products" class="products"></div>
+ </section>
 </div>
-</div>
-</div>
-</section>
 
-<!-- APPLICATION -->
-<div id="application" class="app hidden">
-<aside class="sidebar">
-<div class="brand">✧ LUXE JEWELRY<small>MANAGEMENT SYSTEM</small></div>
-<div class="nav" id="navigation"></div>
-</aside>
+<div id="about" class="hidden">
+ <section>
+  <h1 class="heading">About Royal Gems</h1>
+  <div class="panel">
+   <h2>Our Story</h2>
+   <p>Royal Gems is a jewelry business dedicated to offering elegant, quality and affordable jewelry. Our collection includes bracelets, necklaces, rings, earrings and watches.</p>
+   <h2>Our Mission</h2>
+   <p>To provide customers with beautiful jewelry, convenient shopping and excellent customer service.</p>
+   <h2>Our Vision</h2>
+   <p>To become a trusted jewelry destination known for quality, elegance and customer satisfaction.</p>
+  </div>
+ </section>
+</div>
 
-<main class="main">
-<div class="topbar">
-<div>
-<h1 id="pageTitle">Dashboard</h1>
-<div class="user-info" id="welcome"></div>
+<div id="contact" class="hidden">
+ <section>
+  <h1 class="heading">Contact Us</h1>
+  <form class="form" onsubmit="contactMessage(event)">
+   <label>Your Name</label><input required id="contactName">
+   <label>Email Address</label><input type="email" required id="contactEmail">
+   <label>Message</label><textarea required id="contactMessage" rows="4"></textarea>
+   <button class="btn">Send Enquiry</button>
+  </form>
+ </section>
 </div>
-<button class="logout" id="logout">Logout ↗</button>
+
+<div id="cart" class="hidden">
+ <section>
+  <h1 class="heading">Your Shopping Cart</h1>
+  <div id="cartItems"></div>
+  <h2 id="cartTotal"></h2>
+  <button class="btn" onclick="page('checkout')">Proceed to Checkout</button>
+ </section>
 </div>
-<div id="content"></div>
-<footer>Luxe Jewelry Management System | 2026</footer>
+
+<div id="checkout" class="hidden">
+ <section>
+  <h1 class="heading">Complete Your Order</h1>
+  <form class="form" onsubmit="checkout(event)">
+   <label>Full Name</label><input id="buyerName" required>
+   <label>Email</label><input id="buyerEmail" type="email" required>
+   <label>Phone Number</label><input id="buyerPhone" required>
+   <label>Payment Method</label>
+   <select id="payment"><option>Cash on Collection</option><option>M-Pesa (arrange payment)</option></select>
+   <p id="checkoutTotal"></p>
+   <button class="btn">Place Order</button>
+  </form>
+ </section>
+</div>
+
+<div id="login" class="hidden">
+ <section>
+  <h1 class="heading">Administrator Login</h1>
+  <form class="form" onsubmit="login(event)">
+   <label>Username</label><input id="username" required>
+   <label>Password</label><input id="password" type="password" required>
+   <button class="btn">Login</button>
+  </form>
+ </section>
+</div>
+
+<div id="admin" class="hidden">
+ <section>
+  <h1 class="heading">Administration Dashboard</h1>
+  <div class="toolbar">
+   <button class="btn" onclick="adminTab('dashboard')">Dashboard</button>
+   <button class="btn" onclick="adminTab('manage')">Products</button>
+   <button class="btn" onclick="adminTab('bookings')">Orders & Bookings</button>
+   <button class="btn" onclick="adminTab('sales')">Sales</button>
+   <button class="btn outline" onclick="logout()">Logout</button>
+  </div>
+  <div id="dashboardTab">
+   <div class="stats">
+    <div class="stat">Total Products<strong id="totalProducts">0</strong></div>
+    <div class="stat">Total Stock<strong id="totalStock">0</strong></div>
+    <div class="stat">Orders<strong id="totalOrders">0</strong></div>
+    <div class="stat">Sales Value<strong id="totalSales">KSh 0</strong></div>
+   </div>
+  </div>
+  <div id="manageTab" class="hidden">
+   <div class="panel">
+    <h2>Add / Edit Product</h2>
+    <form onsubmit="saveProduct(event)">
+     <input id="editId" type="hidden">
+     <label>Product Name</label><input id="pname" required>
+     <label>Category</label>
+     <select id="pcategory"><option>Bracelets</option><option>Necklaces</option><option>Rings</option><option>Earrings</option><option>Watches</option></select>
+     <label>Price (KSh)</label><input id="pprice" type="number" min="1" required>
+     <label>Quantity</label><input id="pqty" type="number" min="0" required>
+     <label>Image URL</label><input id="pimage" placeholder="https://example.com/image.jpg">
+     <label>Description</label><textarea id="pdescription"></textarea>
+     <button class="btn">Save Product</button>
+     <button type="button" class="btn outline" onclick="clearProduct()">Clear</button>
+    </form>
+   </div>
+   <div class="tablewrap"><table><thead><tr><th>Product</th><th>Category</th><th>Price</th><th>Stock</th><th>Actions</th></tr></thead><tbody id="productRows"></tbody></table></div>
+  </div>
+  <div id="bookingsTab" class="hidden">
+   <h2>Orders & Bookings</h2>
+   <div class="tablewrap"><table><thead><tr><th>Customer</th><th>Details</th><th>Total</th><th>Status</th><th>Action</th></tr></thead><tbody id="orderRows"></tbody></table></div>
+  </div>
+  <div id="salesTab" class="hidden">
+   <h2>Sales Records</h2>
+   <div class="tablewrap"><table><thead><tr><th>Date</th><th>Customer</th><th>Amount</th><th>Payment</th></tr></thead><tbody id="salesRows"></tbody></table></div>
+  </div>
+ </section>
+</div>
+
+<div id="booking" class="hidden">
+ <section>
+  <h1 class="heading">Reserve Jewelry</h1>
+  <form class="form" onsubmit="makeBooking(event)">
+   <label>Full Name</label><input id="bookName" required>
+   <label>Email</label><input id="bookEmail" type="email" required>
+   <label>Phone</label><input id="bookPhone" required>
+   <label>Product</label><select id="bookProduct"></select>
+   <label>Quantity</label><input id="bookQty" type="number" value="1" min="1" required>
+   <label>Collection Date</label><input id="bookDate" type="date" required>
+   <button class="btn">Submit Booking</button>
+  </form>
+ </section>
+</div>
 </main>
-</div>
+
+<footer>
+ <div class="logo">ROYAL GEMS</div>
+ <p>Timeless Elegance. Beautifully Yours.</p>
+ <p>Jewelry Management System | Nairobi, Kenya</p>
+ <p>© 2026 Royal Gems. All Rights Reserved.</p>
+</footer>
+<div id="notice" role="status"></div>
 
 <script>
-const $=id=>document.getElementById(id);
-const read=(key,def=[])=>{
-try{return JSON.parse(localStorage.getItem(key))||def}catch{return def}
-};
-const save=(key,value)=>localStorage.setItem(key,JSON.stringify(value));
-const money=n=>"KSh "+Number(n||0).toLocaleString("en-KE");
-const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-
-let products=read("luxeProducts");
-let sales=read("luxeSales");
-let bookings=read("luxeBookings");
-let payments=read("luxePayments");
-let customers=read("luxeCustomers");
-let currentUser=null;
-let page="dashboard";
-
-if(!localStorage.getItem("luxeProducts")){
-products=[
-{id:"p1",name:"Gold Necklace",category:"Necklaces",price:3500,quantity:10,material:"Gold"},
-{id:"p2",name:"Diamond Ring",category:"Rings",price:8500,quantity:5,material:"Diamond"},
-{id:"p3",name:"Silver Bracelet",category:"Bracelets",price:2000,quantity:12,material:"Silver"}
+const starter=[
+{name:"Classic Gold Bracelet",category:"Bracelets",price:2500,qty:12,image:"https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600",description:"Elegant everyday bracelet."},
+{name:"Pearl Pendant Necklace",category:"Necklaces",price:3500,qty:8,image:"https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600",description:"Beautiful pearl pendant."},
+{name:"Elegant Gold Ring",category:"Rings",price:1800,qty:15,image:"https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600",description:"Timeless gold ring."},
+{name:"Pearl Earrings",category:"Earrings",price:1200,qty:20,image:"https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600",description:"Elegant pearl earrings."},
+{name:"Luxury Ladies Watch",category:"Watches",price:5000,qty:5,image:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600",description:"Stylish wristwatch."},
+{name:"Silver Charm Bracelet",category:"Bracelets",price:2200,qty:10,image:"https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=600",description:"Charming silver bracelet."},
+{name:"Layered Gold Necklace",category:"Necklaces",price:4200,qty:7,image:"https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=600",description:"Layered necklace for special occasions."},
+{name:"Diamond Style Ring",category:"Rings",price:2800,qty:9,image:"https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=600",description:"Sparkling statement ring."}
 ];
-save("luxeProducts",products);
+let products=JSON.parse(localStorage.getItem("rg_products")||"null")||starter;
+let orders=JSON.parse(localStorage.getItem("rg_orders")||"[]");
+let sales=JSON.parse(localStorage.getItem("rg_sales")||"[]");
+let cart=JSON.parse(localStorage.getItem("rg_cart")||"[]");
+let logged=false;
+function store(){
+localStorage.setItem("rg_products",JSON.stringify(products));
+localStorage.setItem("rg_orders",JSON.stringify(orders));
+localStorage.setItem("rg_sales",JSON.stringify(sales));
+localStorage.setItem("rg_cart",JSON.stringify(cart));
 }
-
-const admin={name:"Administrator",email:"admin@luxe.demo",username:"admin",password:"admin123",role:"admin"};
-
-function persist(){
-save("luxeProducts",products);
-save("luxeSales",sales);
-save("luxeBookings",bookings);
-save("luxePayments",payments);
-save("luxeCustomers",customers);
+function money(n){return "KSh "+Number(n).toLocaleString("en-KE")}
+function notify(s){let n=document.getElementById("notice");n.textContent=s;n.style.display="block";setTimeout(()=>n.style.display="none",2800)}
+function page(p){
+if(p==="admin"&&!logged)p="login";
+document.querySelectorAll("main>div").forEach(x=>x.classList.add("hidden"));
+document.getElementById(p).classList.remove("hidden");
+if(p==="shop")renderShop();
+if(p==="cart")renderCart();
+if(p==="checkout")document.getElementById("checkoutTotal").textContent="Order total: "+money(cart.reduce((a,c)=>a+c.price*c.qty,0));
+if(p==="admin")refreshAdmin();
+window.scrollTo(0,0);
 }
-
-function showLogin(){
-$("loginScreen").classList.remove("hidden");
-$("application").classList.add("hidden");
-currentUser=null;
+function productCard(p,i){
+return `<article class="card"><img src="${escapeHTML(p.image||"")}" alt="${escapeHTML(p.name)}" onerror="this.src='https://placehold.co/600x400?text=Jewelry'"><div class="card-body"><span class="tag">${escapeHTML(p.category)}</span><h3>${escapeHTML(p.name)}</h3><p>${escapeHTML(p.description||"Beautiful jewelry piece.")}</p><p class="price">${money(p.price)}</p><p>${p.qty>0?p.qty+" available":"Out of stock"}</p><button class="btn" onclick="addCart(${i})" ${p.qty<1?"disabled":""}>Add to Cart</button><button class="btn outline" onclick="bookNow(${i})">Book Now</button></div></article>`;
 }
-function enterApp(user){
-currentUser=user;
-$("loginScreen").classList.add("hidden");
-$("application").classList.remove("hidden");
-$("welcome").textContent="Welcome, "+user.name;
-buildNavigation();
-showPage(user.role==="admin"?"dashboard":"shop");
+function escapeHTML(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function renderShop(){
+let q=document.getElementById("search").value.toLowerCase(),f=document.getElementById("filter").value;
+document.getElementById("products").innerHTML=products.map((p,i)=>({p,i})).filter(x=>(x.p.name.toLowerCase().includes(q)||x.p.category.toLowerCase().includes(q))&&(!f||x.p.category===f)).map(x=>productCard(x.p,x.i)).join("")||"<p>No products found.</p>";
 }
-
-$("showRegister").onclick=()=>{
-$("loginFormArea").classList.add("hidden");
-$("registerArea").classList.remove("hidden");
-};
-$("showLogin").onclick=()=>{
-$("registerArea").classList.add("hidden");
-$("loginFormArea").classList.remove("hidden");
-};
-
-$("loginForm").onsubmit=e=>{
-e.preventDefault();
-let u=$("loginUser").value.trim();
-let p=$("loginPass").value;
-if(u===admin.username&&p===admin.password){enterApp(admin);return}
-let customer=customers.find(c=>(c.email.toLowerCase()===u.toLowerCase()||c.email===u)&&c.password===p);
-if(customer){enterApp(customer);return}
-alert("Incorrect login details. Please try again.");
-};
-
-$("registerForm").onsubmit=e=>{
-e.preventDefault();
-let email=$("regEmail").value.trim().toLowerCase();
-if(customers.some(c=>c.email.toLowerCase()===email)){
-alert("This email is already registered.");return;
+function addCart(i){
+if(!products[i]||products[i].qty<1)return notify("This product is unavailable.");
+let found=cart.find(c=>c.id===i);
+if(found){if(found.qty>=products[i].qty)return notify("Not enough stock.");found.qty++}
+else cart.push({id:i,name:products[i].name,price:products[i].price,qty:1});
+store();document.getElementById("cartCount").textContent=cart.reduce((a,c)=>a+c.qty,0);notify("Added to cart!");
 }
-let c={
-id:"c"+Date.now(),name:$("regName").value.trim(),
-email,phone:$("regPhone").value.trim(),
-password:$("regPassword").value,role:"customer"
-};
-customers.push(c);persist();
-alert("Registration successful. You can now log in.");
-$("showLogin").click();
-$("loginUser").value=email;
-};
-
-$("logout").onclick=()=>showLogin();
-
-function buildNavigation(){
-let adminLinks=[
-["dashboard","Dashboard"],["products","Products"],["add","Add Product"],
-["inventory","Inventory"],["sales","Sales"],["bookings","Bookings"],
-["payments","Payments"],["reports","Reports"]
-];
-let customerLinks=[
-["shop","Browse Jewelry"],["mybookings","My Bookings"],["mypayments","My Payments"]
-];
-let links=currentUser.role==="admin"?adminLinks:customerLinks;
-$("navigation").innerHTML=
-'<div class="nav-label">MAIN MENU</div>'+
-links.map(([id,label])=>`<button data-page="${id}">${label}</button>`).join("");
-$("navigation").querySelectorAll("button").forEach(b=>{
-b.onclick=()=>showPage(b.dataset.page);
-});
+function renderCart(){
+document.getElementById("cartItems").innerHTML=cart.map((c,i)=>`<div class="panel"><b>${escapeHTML(c.name)}</b> — ${money(c.price)} × ${c.qty}<button class="btn outline" onclick="removeCart(${i})">Remove</button></div>`).join("")||"Your cart is empty.";
+document.getElementById("cartTotal").textContent="Total: "+money(cart.reduce((a,c)=>a+c.price*c.qty,0));
 }
-
-function showPage(name){
-page=name;
-let labels={
-dashboard:"Dashboard",products:"Products",add:"Add Product",
-inventory:"Inventory",sales:"Sales",bookings:"Booking Management",
-payments:"Payment Records",reports:"Reports",shop:"Jewelry Collection",
-mybookings:"My Bookings",mypayments:"My Payments"
-};
-$("pageTitle").textContent=labels[name]||name;
-$("navigation").querySelectorAll("button").forEach(b=>{
-b.classList.toggle("active",b.dataset.page===name);
-});
-render();
+function removeCart(i){cart.splice(i,1);store();updateCart();renderCart()}
+function updateCart(){document.getElementById("cartCount").textContent=cart.reduce((a,c)=>a+c.qty,0)}
+function checkout(e){
+e.preventDefault();if(!cart.length)return notify("Your cart is empty.");
+for(let c of cart)if(!products[c.id]||products[c.id].qty<c.qty)return notify("Insufficient stock for "+c.name);
+let order={id:Date.now(),name:buyerName.value,email:buyerEmail.value,phone:buyerPhone.value,items:cart.map(c=>({...c})),total:cart.reduce((a,c)=>a+c.price*c.qty,0),payment:payment.value,status:"Pending",date:new Date().toLocaleDateString()};
+orders.push(order);cart.forEach(c=>products[c.id].qty-=c.qty);sales.push({date:order.date,name:order.name,total:order.total,payment:order.payment});cart=[];store();updateCart();e.target.reset();notify("Order submitted successfully!");page("home");
 }
-
-function render(){
-let views={
-dashboard:dashboardPage,products:productsPage,add:addPage,
-inventory:inventoryPage,sales:salesPage,bookings:bookingsPage,
-payments:paymentsPage,reports:reportsPage,shop:shopPage,
-mybookings:myBookingsPage,mypayments:myPaymentsPage
-};
-$("content").innerHTML=views[page]?views[page]():"";
+function bookNow(i){document.getElementById("bookProduct").innerHTML=products.map((p,j)=>`<option value="${j}" ${i===j?"selected":""}>${escapeHTML(p.name)} — ${money(p.price)}</option>`).join("");page("booking")}
+function makeBooking(e){
+e.preventDefault();let i=Number(bookProduct.value),q=Number(bookQty.value),p=products[i];if(!p||q<1||q>p.qty)return notify("Please check the available quantity.");
+orders.push({id:Date.now(),name:bookName.value,email:bookEmail.value,phone:bookPhone.value,items:[{name:p.name,qty:q,price:p.price}],total:p.price*q,payment:"Not paid",status:"Booking request",date:bookDate.value});store();e.target.reset();notify("Booking request submitted!");page("home");
 }
-
-function dashboardPage(){
-let stock=products.reduce((a,p)=>a+Number(p.quantity),0);
-let value=products.reduce((a,p)=>a+p.price*p.quantity,0);
-let completed=sales.reduce((a,s)=>a+s.total,0);
-return `
-<div class="cards">
-<div class="card"><span>Total Products</span><h2>${products.length}</h2></div>
-<div class="card"><span>Total Stock</span><h2>${stock}</h2></div>
-<div class="card"><span>Sales Recorded</span><h2>${sales.length}</h2></div>
-<div class="card"><span>Inventory Value</span><h2>${money(value)}</h2></div>
-</div>
-<div class="grid">
-<div class="panel"><h2>Business Overview</h2>
-<p>Welcome to your Jewelry Management System.</p>
-<p>Products: ${products.length}</p>
-<p>Registered customers: ${customers.length}</p>
-<p>Bookings: ${bookings.length}</p>
-<p>Recorded sales: ${sales.length}</p>
-</div>
-<div class="panel"><h2>Low Stock Alert</h2>
-${products.filter(p=>p.quantity<=5).map(p=>`<p>${esc(p.name)} — ${p.quantity} remaining</p>`).join("")||"<p>No low-stock products.</p>"}
-</div></div>`;
+function contactMessage(e){e.preventDefault();notify("Thank you! Your enquiry has been recorded for this demonstration.");e.target.reset()}
+function login(e){e.preventDefault();if(username.value==="admin"&&password.value==="admin123"){logged=true;notify("Welcome, Administrator!");page("admin")}else notify("Incorrect username or password.")}
+function logout(){logged=false;page("home");notify("Logged out.")}
+function adminTab(t){["dashboard","manage","bookings","sales"].forEach(x=>document.getElementById(x+"Tab").classList.toggle("hidden",x!==t));refreshAdmin()}
+function refreshAdmin(){
+document.getElementById("totalProducts").textContent=products.length;
+document.getElementById("totalStock").textContent=products.reduce((a,p)=>a+Number(p.qty),0);
+document.getElementById("totalOrders").textContent=orders.length;
+document.getElementById("totalSales").textContent=money(sales.reduce((a,s)=>a+s.total,0));
+document.getElementById("productRows").innerHTML=products.map((p,i)=>`<tr><td>${escapeHTML(p.name)}</td><td>${escapeHTML(p.category)}</td><td>${money(p.price)}</td><td>${p.qty}</td><td><button onclick="editProduct(${i})">Edit</button> <button onclick="deleteProduct(${i})">Delete</button></td></tr>`).join("");
+document.getElementById("orderRows").innerHTML=orders.map((o,i)=>`<tr><td>${escapeHTML(o.name)}</td><td>${escapeHTML(o.items.map(x=>x.name+" × "+x.qty).join(", "))}</td><td>${money(o.total)}</td><td>${escapeHTML(o.status)}</td><td><button onclick="completeOrder(${i})">Complete</button></td></tr>`).join("");
+document.getElementById("salesRows").innerHTML=sales.map(s=>`<tr><td>${escapeHTML(s.date)}</td><td>${escapeHTML(s.name)}</td><td>${money(s.total)}</td><td>${escapeHTML(s.payment)}</td></tr>`).join("");
 }
-
-function addPage(){
-return `<div class="panel"><h2>Register Jewelry Product</h2>
-<form id="productForm">
-<label>Product Name</label><input name="name" required>
-<label>Category</label><select name="category">
-${["Rings","Necklaces","Bracelets","Earrings","Watches","Other"].map(x=>`<option>${x}</option>`).join("")}
-</select>
-<label>Price (KSh)</label><input name="price" type="number" min="1" required>
-<label>Quantity</label><input name="quantity" type="number" min="0" required>
-<label>Material</label><input name="material" required>
-<label>Image URL (optional)</label><input name="image" type="url" placeholder="https://...">
-<label>Description (optional)</label><textarea name="description"></textarea>
-<button class="btn">Save Product</button>
-</form></div>`;
+function saveProduct(e){
+e.preventDefault();let p={name:pname.value,category:pcategory.value,price:Number(pprice.value),qty:Number(pqty.value),image:pimage.value,description:pdescription.value};
+let id=editId.value;if(id==="")products.push(p);else products[Number(id)]=p;
+store();clearProduct();refreshAdmin();notify("Product saved successfully.");
 }
-
-function productsPage(){
-return `<div class="panel"><div class="topbar"><h2>Jewelry Products</h2>
-<button class="btn" onclick="showPage('add')">+ Add Product</button></div>
-<div class="grid">${products.map(p=>`
-<div class="product-card">
-<div class="product-image">${p.image?`<img src="${esc(p.image)}" alt="" style="width:100%;height:160px;object-fit:cover" onerror="this.style.display='none'">`:"💎"}</div>
-<div class="product-details"><h3>${esc(p.name)}</h3>
-<p>${esc(p.category)} · ${esc(p.material)}</p>
-<div class="price">${money(p.price)}</div>
-<p>Stock: ${p.quantity}</p>
-<div class="actions">
-<button class="btn btn-small" onclick="editProduct('${p.id}')">Edit</button>
-<button class="btn btn-danger btn-small" onclick="deleteProduct('${p.id}')">Delete</button>
-</div></div></div>`).join("")||'<p class="empty">No products added.</p>'}</div></div>`;
-}
-
-function inventoryPage(){
-return `<div class="panel"><h2>Inventory Overview</h2><div class="table-wrap"><table>
-<tr><th>Product</th><th>Category</th><th>Price</th><th>Quantity</th><th>Status</th></tr>
-${products.map(p=>`<tr><td>${esc(p.name)}</td><td>${esc(p.category)}</td><td>${money(p.price)}</td><td>${p.quantity}</td><td><span class="badge ${p.quantity===0?"red":p.quantity<=5?"gold-bg":"green"}">${p.quantity===0?"Out of Stock":p.quantity<=5?"Low Stock":"In Stock"}</span></td></tr>`).join("")}
-</table></div></div>`;
-}
-
-function salesPage(){
-return `<div class="grid"><div class="panel"><h2>Record a Sale</h2>
-<form id="saleForm"><label>Select Product</label><select name="product" required>
-${products.filter(p=>p.quantity>0).map(p=>`<option value="${p.id}">${esc(p.name)} — ${money(p.price)} (${p.quantity} available)</option>`).join("")}
-</select><label>Quantity Sold</label><input name="quantity" type="number" min="1" required>
-<button class="btn">Record Sale</button></form></div>
-<div class="panel"><h2>Sales Summary</h2><h2 class="gold">${money(sales.reduce((a,s)=>a+s.total,0))}</h2><p>Total recorded sales value</p></div></div>
-<div class="panel"><h2>Sales History</h2>${sales.map(s=>`<p>${esc(s.name)} — ${s.quantity} sold — ${money(s.total)} — ${esc(s.date)}</p>`).join("")||"No sales recorded."}</div>`;
-}
-
-function bookingsPage(){
-return `<div class="panel"><h2>Customer Bookings</h2><div class="table-wrap"><table>
-<tr><th>Customer</th><th>Product</th><th>Date</th><th>Phone</th><th>Status</th><th>Action</th></tr>
-${bookings.map(b=>`<tr><td>${esc(b.customer)}</td><td>${esc(b.product)}</td><td>${esc(b.date)}</td><td>${esc(b.phone)}</td><td>${esc(b.status)}</td><td><button class="btn btn-small" onclick="updateBooking('${b.id}','Confirmed')">Confirm</button><button class="btn btn-small btn-danger" onclick="updateBooking('${b.id}','Cancelled')">Cancel</button></td></tr>`).join("")}
-</table></div></div>`;
-}
-
-function paymentsPage(){
-return `<div class="panel"><h2>Payment Records</h2><div class="table-wrap"><table>
-<tr><th>Customer</th><th>Item</th><th>Amount</th><th>Method</th><th>Status</th><th>Date</th></tr>
-${payments.map(p=>`<tr><td>${esc(p.customer)}</td><td>${esc(p.product)}</td><td>${money(p.amount)}</td><td>${esc(p.method)}</td><td><span class="badge gold-bg">${esc(p.status)}</span></td><td>${esc(p.date)}</td></tr>`).join("")}
-</table></div><p class="notice">All payments shown here are simulated demonstrations. No real money is collected.</p></div>`;
-}
-
-function reportsPage(){
-let total=sales.reduce((a,s)=>a+s.total,0);
-return `<div class="panel"><h2>Business Reports</h2>
-<div class="cards"><div class="card"><span>Products</span><h2>${products.length}</h2></div>
-<div class="card"><span>Bookings</span><h2>${bookings.length}</h2></div>
-<div class="card"><span>Sales Value</span><h2>${money(total)}</h2></div></div>
-<button class="btn" onclick="exportCSV()">Export Products CSV</button>
-<button class="btn btn-dark" onclick="window.print()">Print Report</button></div>`;
-}
-
-function shopPage(){
-return `<div class="panel"><h2>Our Jewelry Collection</h2><p>Browse the available jewelry and reserve your preferred item.</p>
-<div class="grid">${products.filter(p=>p.quantity>0).map(p=>`
-<div class="product-card"><div class="product-image">💎</div>
-<div class="product-details"><h3>${esc(p.name)}</h3><p>${esc(p.category)} · ${esc(p.material)}</p>
-<div class="price">${money(p.price)}</div><p>${p.quantity} available</p>
-<button class="btn" onclick="bookProduct('${p.id}')">Book This Item</button></div></div>`).join("")||"No available products."}</div></div>`;
-}
-
-function myBookingsPage(){
-let mine=bookings.filter(b=>b.customerEmail===currentUser.email);
-return `<div class="panel"><h2>Your Reservations</h2>
-${mine.map(b=>`<p>${esc(b.product)} — ${esc(b.date)} — ${esc(b.status)}</p>`).join("")||"You have no bookings yet."}</div>`;
-}
-
-function myPaymentsPage(){
-let mine=payments.filter(p=>p.customerEmail===currentUser.email);
-return `<div class="panel"><h2>Your Payment Records</h2>
-${mine.map(p=>`<p>${esc(p.product)} — ${money(p.amount)} — ${esc(p.method)} — ${esc(p.status)}</p>`).join("")||"You have no payment records yet."}</div>`;
-}
-
-$("content").addEventListener("submit",e=>{
-e.preventDefault();
-let f=e.target;
-
-if(f.id==="productForm"){
-let d=Object.fromEntries(new FormData(f));
-products.push({id:"p"+Date.now(),name:d.name,category:d.category,price:Number(d.price),quantity:Number(d.quantity),material:d.material,image:d.image,description:d.description});
-persist();alert("Product added successfully.");showPage("products");
-}
-if(f.id==="saleForm"){
-let d=Object.fromEntries(new FormData(f));
-let p=products.find(x=>x.id===d.product),q=Number(d.quantity);
-if(!p||q<1||q>p.quantity){alert("Please enter a valid quantity.");return}
-p.quantity-=q;
-sales.push({id:"s"+Date.now(),name:p.name,quantity:q,total:p.price*q,date:new Date().toLocaleString()});
-persist();alert("Sale recorded and stock updated.");showPage("sales");
-}
-});
-
-function editProduct(id){
-let p=products.find(x=>x.id===id);if(!p)return;
-let name=prompt("Product name:",p.name);if(name===null)return;
-let price=Number(prompt("Price:",p.price));
-let quantity=Number(prompt("Quantity:",p.quantity));
-if(!name.trim()||!Number.isFinite(price)||price<0||!Number.isInteger(quantity)||quantity<0){alert("Invalid details.");return}
-p.name=name.trim();p.price=price;p.quantity=quantity;persist();render();
-}
-function deleteProduct(id){
-if(!confirm("Delete this product?"))return;
-products=products.filter(p=>p.id!==id);persist();render();
-}
-function updateBooking(id,status){
-let b=bookings.find(x=>x.id===id);if(b)b.status=status;
-persist();render();
-}
-
-function bookProduct(id){
-let p=products.find(x=>x.id===id);if(!p)return;
-let date=prompt("Enter your preferred booking date (YYYY-MM-DD):");
-if(!date)return;
-if(!/^\d{4}-\d{2}-\d{2}$/.test(date)){alert("Enter the date as YYYY-MM-DD.");return}
-let phone=prompt("Enter your phone number:");
-if(!phone)return;
-let b={id:"b"+Date.now(),customer:currentUser.name,customerEmail:currentUser.email,phone,product:p.name,productId:p.id,price:p.price,date,status:"Pending"};
-bookings.push(b);persist();
-if(confirm("Booking submitted! Would you like to make a demonstration payment now?"))makePayment(b);
-alert("Your booking has been saved.");
-showPage("mybookings");
-}
-
-function makePayment(b){
-let method=prompt("Choose payment method: M-Pesa, Cash or Card","M-Pesa");
-if(!method)return;
-method=method.trim();
-if(!["M-Pesa","Cash","Card"].some(x=>x.toLowerCase()===method.toLowerCase())){
-alert("Choose M-Pesa, Cash or Card.");return;
-}
-let reference="DEMO"+Date.now().toString().slice(-8);
-payments.push({
-id:"pay"+Date.now(),customer:b.customer,customerEmail:b.customerEmail,
-product:b.product,amount:b.price,method,status:"Demo Successful",
-reference,date:new Date().toLocaleString()
-});
-persist();
-alert("DEMO PAYMENT SUCCESSFUL\nReference: "+reference+"\nAmount: "+money(b.price)+"\nNo real money was transferred.");
-}
-
-function exportCSV(){
-let rows=[["Product","Category","Price","Quantity","Material"],...products.map(p=>[p.name,p.category,p.price,p.quantity,p.material])];
-let csv=rows.map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(",")).join("\n");
-let a=document.createElement("a");
-a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
-a.download="jewelry-products-report.csv";a.click();URL.revokeObjectURL(a.href);
-}
-
-enterApp(admin);
-showLogin();
+function editProduct(i){let p=products[i];editId.value=i;pname.value=p.name;pcategory.value=p.category;pprice.value=p.price;pqty.value=p.qty;pimage.value=p.image;pdescription.value=p.description;window.scrollTo(0,0)}
+function clearProduct(){document.querySelector("#manageTab form").reset();editId.value=""}
+function deleteProduct(i){if(confirm("Delete this product?")){products.splice(i,1);store();refreshAdmin();notify("Product deleted.")}}
+function completeOrder(i){orders[i].status="Completed";store();refreshAdmin();notify("Order marked completed.")}
+document.getElementById("featured").innerHTML=products.slice(0,4).map(productCard).join("");
+updateCart();
 </script>
 </body>
 </html>
